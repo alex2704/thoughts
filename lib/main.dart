@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:thoughts/views/feed.dart';
 
 import 'color_block.dart';
 
@@ -8,14 +9,20 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  // @override
+  // Widget build(BuildContext context) {
+  //   return MaterialApp(
+  //     title: 'Flutter Demo',
+  //     home: BlocProvider(
+  //       create: (context) => ColorBloc(Colors.red),
+  //       child: MyHomePage(),
+  //     ),
+  //   );
+  // }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      home: BlocProvider(
-        create: (context) => ColorBloc(Colors.red),
-        child: MyHomePage(),
-      ),
+        home: Feed(),
     );
   }
 }
