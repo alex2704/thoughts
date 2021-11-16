@@ -9,11 +9,15 @@ class Feed extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: Header(),
-        body: Column(
-          children: [
-            FeedItem()
-          ],
-        )
-    );
+        body: Scrollbar(
+          thickness: 5.0,
+          radius: const Radius.circular(10.0),
+          child:ListView(
+            children: [
+              FeedItem(),
+              FeedItem(),
+              FeedItem()
+            ],
+        )));
   }
 }
