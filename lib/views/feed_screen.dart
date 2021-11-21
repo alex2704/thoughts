@@ -1,7 +1,10 @@
+import 'dart:developer';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:thoughts/views/components/feed_item.dart';
 import 'package:thoughts/views/components/header.dart';
-import 'package:thoughts/views/components/orange_elevated_button.dart';
+import 'package:thoughts/views/components/custom_widgets/orange_elevated_button.dart';
 
 class FeedScreen extends StatelessWidget {
   const FeedScreen({Key? key}) : super(key: key);
@@ -29,7 +32,9 @@ class FeedScreen extends StatelessWidget {
                           margin: const EdgeInsets.only(bottom: 10),
                           child: MyOrangeElevatedButton(
                             child: const Text('Войти в аккаунт'),
-                            onPressed: () => {},
+                              onPressed: () {
+                              Navigator.pushNamed(context, '/login');
+                              },
                             edgeInsetsGeometry: const EdgeInsets.symmetric(
                                 horizontal: 70, vertical: 10),
                           ))))

@@ -29,7 +29,19 @@ class CustomTheme {
       buttonTheme: ButtonThemeData(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         buttonColor: CustomColors.orange,
-      )
+      ),
+        textTheme: TextTheme(
+        headline1: TextStyle(color: Colors.white,
+            fontFamily: 'Lato',
+            fontSize: 30.0,
+            fontWeight: FontWeight.w600,
+            shadows: [
+              Shadow(
+                  color: Colors.black.withOpacity(0.25),
+                  offset: const Offset(0, 4),
+                  blurRadius: 4)
+            ]),
+    )
     );
   }
 }

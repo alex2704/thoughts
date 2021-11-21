@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:thoughts/theme/colors.dart';
 
-import 'components/grey_elevated_button.dart';
+import 'components/custom_widgets/grey_elevated_button.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({Key? key}) : super(key: key);
@@ -17,17 +17,7 @@ class OnBoardingScreen extends StatelessWidget {
               Text(
                 'Добро пожаловать в THOUGHTS',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Lato',
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.w600,
-                    shadows: [
-                      Shadow(
-                          color: Colors.black.withOpacity(0.25),
-                          offset: const Offset(0, 4),
-                          blurRadius: 4)
-                    ]),
+                style: Theme.of(context).textTheme.headline1
               ),
               Center(child: Padding(padding: const EdgeInsets.only(top: 15, bottom: 15),
                 child: Image.asset('assets/images/onboarding.png'),)),
