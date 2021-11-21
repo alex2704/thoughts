@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:thoughts/theme/custom_theme.dart';
-import 'package:thoughts/views/feed.dart';
-import 'package:thoughts/views/onboarding.dart';
+import 'package:thoughts/views/feed_screen.dart';
+import 'package:thoughts/views/onboarding_screen.dart';
 
 import 'color_block.dart';
 

@@ -56,7 +56,7 @@ class OnBoardingScreen extends StatelessWidget {
                   fontWeight: FontWeight.w300
               )),),
               MyGreyElevatedButton(onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(context, '/feed', (route) => false);
+                Navigator.pushReplacementNamed(context, '/feed');
               },
                   child: const Text('Продолжить'))
             ],
