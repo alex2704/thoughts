@@ -49,7 +49,7 @@ class LoginScreen extends StatelessWidget {
                     style: const TextStyle(color: Colors.blue),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          Navigator.of(context).pushNamedAndRemoveUntil('/feed', (r) => false);
+                          Navigator.of(context).pushNamedAndRemoveUntil('/registration', (r) => false);
                         }
                   )]))
                 ],

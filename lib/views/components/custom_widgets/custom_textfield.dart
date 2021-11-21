@@ -33,6 +33,7 @@ class CustomTextField {
               obscureText: isPassword,
               keyboardType: isNumber ? TextInputType.number : TextInputType.text,
               decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
                 counterText: '',
                 enabledBorder: cornerRadius == 0
                     ? InputBorder.none

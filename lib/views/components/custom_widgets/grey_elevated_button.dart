@@ -14,6 +14,7 @@ class MyGreyElevatedButton extends StatelessWidget {
       (onPressed: onPressed, child: child,
       style: ElevatedButton.styleFrom(
         primary: CustomColors.grey,
+        minimumSize: const Size(350, 30),
         padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 10),
         textStyle: const TextStyle(fontSize: 18, color: Colors.white)
       ),);
