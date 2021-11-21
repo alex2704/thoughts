@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:thoughts/theme/colors.dart';
 
-class OnBoarding extends StatelessWidget {
-  const OnBoarding({Key? key}) : super(key: key);
+import 'components/grey_elevated_button.dart';
+
+class OnBoardingScreen extends StatelessWidget {
+  const OnBoardingScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +41,9 @@ class OnBoarding extends StatelessWidget {
                   fontWeight: FontWeight.w600
                 ),
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                child: const Text('Lorem ipsum dolor sit amet consectetur, '
+                child: Text('Lorem ipsum dolor sit amet consectetur, '
                   'adipisicing elit. Explicabo necessitatibus nihil officiis '
                   'exercitationem laboriosam voluptas, sequi voluptate mollitia '
                   'perferendis odio magnam autem rem unde quibusdam maxime '
@@ -52,7 +54,11 @@ class OnBoarding extends StatelessWidget {
                 fontFamily: 'Lato',
                 fontSize: 16,
                   fontWeight: FontWeight.w300
-              )),)
+              )),),
+              MyGreyElevatedButton(onPressed: () {
+                Navigator.pushNamedAndRemoveUntil(context, '/feed', (route) => false);
+              },
+                  child: const Text('Продолжить'))
             ],
           )),
     );
