@@ -19,12 +19,12 @@ class FeedItem extends StatelessWidget {
               children: const [
                 CircleAvatar(
                   backgroundImage: AssetImage('assets/images/x7.jpg'),
-                  radius: 40,
+                  radius: 30,
                 ),
                 Icon(
                   Icons.favorite,
                   color: Colors.redAccent,
-                  size: 40.0,
+                  size: 30.0,
                 )
               ],
             ),
@@ -76,7 +76,7 @@ class FeedItem extends StatelessWidget {
                       children: const [
                         FaIcon(
                           FontAwesomeIcons.comment,
-                          size: 35.0,
+                          size: 25.0,
                         ),
                         Text(
                           '7 часов назад',
