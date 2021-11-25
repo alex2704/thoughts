@@ -8,7 +8,8 @@ class FeedItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
+    return InkWell(
+        child: Column(children: [
       Container(
         // color: Colors.orange,
         child: IntrinsicHeight(
@@ -98,6 +99,7 @@ class FeedItem extends StatelessWidget {
         color: CustomColors.light_grey,
         thickness: 1
       )
-    ]);
+    ]),
+    onTap: () => Navigator.pushNamed(context, '/post'),);
   }
 }

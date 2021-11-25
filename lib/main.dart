@@ -4,6 +4,7 @@ import 'package:thoughts/theme/custom_theme.dart';
 import 'package:thoughts/views/feed_screen.dart';
 import 'package:thoughts/views/login_screen.dart';
 import 'package:thoughts/views/onboarding_screen.dart';
+import 'package:thoughts/views/post_screen.dart';
 import 'package:thoughts/views/registration_screen.dart';
 
 import 'color_block.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
           '/feed': (context) => const FeedScreen(),
           '/login': (context) => const LoginScreen(),
           '/registration': (context) => const RegistrationScreen(),
+          '/post' : (context) => const PostScreen(),
         },
     );
   }
