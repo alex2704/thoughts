@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "874318425730",
+    "project_id": "thoughts-db150",
+    "storage_bucket": "thoughts-db150.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:874318425730:android:414ab7faeacbede14dce9b",
+        "android_client_info": {
+          "package_name": "com.alex.thoughts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "874318425730-ade0f0rcvj5quspfch2rpca1g8rssngs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFjlMp6jYK50XDxzUQ9c3VeN0ifAw0l7E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "874318425730-ade0f0rcvj5quspfch2rpca1g8rssngs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
