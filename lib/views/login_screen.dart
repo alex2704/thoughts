@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +9,8 @@ import 'package:thoughts/services/login_bloc/login_state.dart';
 import 'package:thoughts/theme/colors.dart';
 import 'package:thoughts/views/components/custom_widgets/custom_textfield.dart';
 import 'package:thoughts/views/components/custom_widgets/grey_elevated_button.dart';
+
+import 'feed_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -48,8 +51,7 @@ class LoginScreenChild extends StatelessWidget {
                       } else if (state is LoginFailureState) {
                         _buildFailureUi(state.message);
                       } else if (state is LoginSuccessState) {
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                            '/registration', (r) => false);
+                        _navigateToFeedPage(context, state.user);
                       }
                     },
                     child: BlocBuilder<LoginBloc, LoginState>(
@@ -139,5 +141,11 @@ class LoginScreenChild extends StatelessWidget {
         backgroundColor: Colors.red,
         textColor: Colors.white,
         fontSize: 16.0);
+  }
+
+  void _navigateToFeedPage(BuildContext context, User? user) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return const FeedScreen();
+    }));
   }
 }

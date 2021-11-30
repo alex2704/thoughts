@@ -99,7 +99,7 @@ class App extends StatelessWidget {
           } else if (state is UnAuthenticatedState) {
             return LoginScreen();
           }
-          return const OnBoardingScreen();
+          return const FeedScreen();
         },
       ),
     ));

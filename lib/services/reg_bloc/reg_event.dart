@@ -4,9 +4,9 @@ abstract class RegEvent extends Equatable {}
 
 class SignUpButtonPressedEvent extends RegEvent {
 
-  String email, password;
+  String email, password, name;
 
-  SignUpButtonPressedEvent({required this.email, required this.password});
+  SignUpButtonPressedEvent({required this.email, required this.password, required this.name});
 
   @override
   // TODO: implement props
