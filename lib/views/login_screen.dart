@@ -84,7 +84,9 @@ class LoginScreenChild extends StatelessWidget {
                       cornerRadius: 10.0,
                       isPassword: true,
                       textController: passwordController),
-                  const SizedBox(height: 140),
+                  SizedBox(
+                      height: MediaQuery.of(context).size.height / 4,
+                  ),
                   MyGreyElevatedButton(
                       child: const Text(
                         'Войти',

@@ -97,7 +97,7 @@ class RegistrationScreenChild extends StatelessWidget {
                       cornerRadius: 10.0,
                       isPassword: true,
                       textController: repeatPasswordController),
-                  const SizedBox(height: 70),
+                  SizedBox(height: MediaQuery.of(context).size.height / 10,),
                   MyGreyElevatedButton(
                       child: const Text(
                         'Регистрация',
