@@ -9,6 +9,7 @@ import 'package:thoughts/services/login_bloc/login_state.dart';
 import 'package:thoughts/theme/colors.dart';
 import 'package:thoughts/views/components/custom_widgets/custom_textfield.dart';
 import 'package:thoughts/views/components/custom_widgets/grey_elevated_button.dart';
+import 'package:thoughts/views/registration_screen.dart';
 
 import 'feed_screen.dart';
 
@@ -108,8 +109,7 @@ class LoginScreenChild extends StatelessWidget {
                         style: const TextStyle(color: Colors.blue),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                '/registration', (r) => false);
+                            _navigateToRegisterPage(context);
                           })
                   ]))
                 ],
@@ -146,8 +146,14 @@ class LoginScreenChild extends StatelessWidget {
   }
 
   void _navigateToFeedPage(BuildContext context, User? user) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {
       return const FeedScreen();
+    }), (Route<dynamic> route) => false);
+  }
+
+  void _navigateToRegisterPage(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return const RegistrationScreen();
     }));
   }
 }

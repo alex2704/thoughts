@@ -9,6 +9,7 @@ import 'package:thoughts/services/reg_bloc/reg_event.dart';
 import 'package:thoughts/services/reg_bloc/reg_state.dart';
 import 'package:thoughts/theme/colors.dart';
 import 'package:thoughts/views/feed_screen.dart';
+import 'package:thoughts/views/login_screen.dart';
 
 import 'components/custom_widgets/custom_textfield.dart';
 import 'components/custom_widgets/grey_elevated_button.dart';
@@ -107,7 +108,8 @@ class RegistrationScreenChild extends StatelessWidget {
                             _regBloc.add(SignUpButtonPressedEvent(
                                 email: emailController.text,
                                 password: passwordController.text,
-                                name: nameController.text))
+                                name: nameController.text)),
+
                           }),
                   const SizedBox(height: 20),
                   RichText(
@@ -120,8 +122,7 @@ class RegistrationScreenChild extends StatelessWidget {
                         style: const TextStyle(color: Colors.blue),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                '/login', (r) => false);
+                            _navigateToLoginPage(context);
                           })
                   ]))
                 ],
@@ -158,8 +159,15 @@ class RegistrationScreenChild extends StatelessWidget {
   }
 
   void _navigateToFeedPage(BuildContext context, User? user) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {
       return const FeedScreen();
+    }), (Route<dynamic> route) => false);
+  }
+
+  void _navigateToLoginPage(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return const LoginScreen();
     }));
   }
+
 }

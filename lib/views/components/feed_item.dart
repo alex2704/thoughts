@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart.';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:thoughts/theme/colors.dart';
+import 'package:thoughts/views/post_screen.dart';
 
 class FeedItem extends StatelessWidget {
   const FeedItem({Key? key}) : super(key: key);
@@ -100,6 +101,15 @@ class FeedItem extends StatelessWidget {
         thickness: 1
       )
     ]),
-    onTap: () => Navigator.pushNamed(context, '/post'),);
+    onTap: () => _navigateToPostPage(context)
+    );
   }
+
+
+  void _navigateToPostPage(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return const PostScreen();
+    }));
+  }
+
 }

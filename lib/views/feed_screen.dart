@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:thoughts/views/components/feed_item.dart';
 import 'package:thoughts/views/components/header.dart';
 import 'package:thoughts/views/components/custom_widgets/orange_elevated_button.dart';
+import 'package:thoughts/views/login_screen.dart';
+import 'package:thoughts/views/post_screen.dart';
 
 class FeedScreen extends StatelessWidget {
   const FeedScreen({Key? key}) : super(key: key);
@@ -33,7 +35,7 @@ class FeedScreen extends StatelessWidget {
                           child: MyOrangeElevatedButton(
                             child: const Text('Войти в аккаунт'),
                               onPressed: () {
-                              Navigator.pushNamed(context, '/login');
+                              _navigateToLoginPage(context);
                               },
                             edgeInsetsGeometry: const EdgeInsets.symmetric(
                                 horizontal: 70, vertical: 10),
@@ -42,5 +44,11 @@ class FeedScreen extends StatelessWidget {
             // ]
             // ),
             ));
+  }
+
+  void _navigateToLoginPage(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return const LoginScreen();
+    }));
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:thoughts/theme/colors.dart';
 
 import 'components/custom_widgets/grey_elevated_button.dart';
+import 'feed_screen.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({Key? key}) : super(key: key);
@@ -46,11 +47,17 @@ class OnBoardingScreen extends StatelessWidget {
                   fontWeight: FontWeight.w300
               )),),
               MyGreyElevatedButton(onPressed: () {
-                Navigator.pushReplacementNamed(context, '/feed');
+                _navigateToFeedPage(context);
               },
                   child: const Text('Продолжить'))
             ],
           )),
     );
+  }
+
+  void _navigateToFeedPage(BuildContext context) {
+    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {
+      return const FeedScreen();
+    }), (Route<dynamic> route) => false);
   }
 }
