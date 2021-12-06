@@ -14,7 +14,7 @@ class PostScreen extends StatelessWidget {
       appBar: Header(),
       body: ListView(
         children:  [
-          const FeedItem(),
+          // FeedItem(),
           // ListView(
           //   children: [
               Comment(),

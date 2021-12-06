@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:thoughts/bloc/post_bloc/post_bloc.dart';
 import 'package:thoughts/bloc/post_bloc/post_event.dart';
 import 'package:thoughts/bloc/post_bloc/post_state.dart';
+import 'package:thoughts/entities/post.dart';
 import 'package:thoughts/views/components/feed_item.dart';
 import 'dart:developer' as developer;
 
@@ -36,7 +37,9 @@ class FeedItemsList extends StatelessWidget {
             return Stack(children: <Widget>[
             ListView.builder(
             itemCount: 5,
-                itemBuilder: (context, index) => const FeedItem()),
+                itemBuilder: (context, index) => FeedItem(
+                  post: state.loadedPost[0],
+                )),
               Positioned(
                   child: Align(
                       alignment: Alignment.bottomCenter,

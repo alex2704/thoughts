@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart.';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart';
+import 'package:thoughts/entities/post.dart';
 import 'package:thoughts/theme/colors.dart';
 import 'package:thoughts/views/post_screen.dart';
 
 class FeedItem extends StatelessWidget {
-  const FeedItem({Key? key}) : super(key: key);
+
+  final Post post;
+
+  const FeedItem({required this.post, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,31 +62,19 @@ class FeedItem extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    'Lorem '
-                    'ipsum dolor sit amet, consectetur adipiscing elit,'
-                    ' sed do eiusmod tempor incididunt ut labore et '
-                    'dolore magna aliqua. Ut enim ad minim veniam,'
-                    ' quis nostrud.Lorem '
-                    'ipsum dolor sit amet, consectetur adipiscing elit,'
-                    ' sed do eiusmod tempor incididunt ut labore et '
-                    'dolore magna aliqua. Ut enim ad minim veniam,'
-                    ' quis nostrud.Lorem '
-                    'ipsum dolor sit amet, consectetur adipiscing elit,'
-                    ' sed do eiusmod tempor incididunt ut labore et '
-                    'dolore magna aliqua. Ut enim ad minim veniam,'
-                    ' quis nostrud.',
+                    '${this.post.description}',
                     textAlign: TextAlign.left,
                   ),
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
+                      children: [
                         FaIcon(
                           FontAwesomeIcons.comment,
                           size: 25.0,
                         ),
                         Text(
-                          '7 часов назад',
+                          '${this.post.dateCreated}',
                           style: TextStyle(color: CustomColors.light_grey),
                         )
                       ],

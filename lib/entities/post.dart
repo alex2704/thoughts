@@ -12,11 +12,11 @@ class Post extends Equatable{
   final int commentsCount;
   final int likesCount;
   final bool isLiked;
-  final Timestamp dateCreated;
+  late final DateTime dateCreated;
   // final List<Comment> comments;
 
 
-  const Post({
+  Post({
       required this.idPost,
       required this.urlImg,
       required this.description,
@@ -24,9 +24,11 @@ class Post extends Equatable{
       required this.commentsCount,
       required this.likesCount,
       required this.isLiked,
-      required this.dateCreated,
+      required Timestamp dateCreated
       // required this.comments
-  });
+  }) {
+    this.dateCreated = dateCreated.toDate();
+  }
 
   @override
   List<Object?> get props => [idPost, urlImg, description, idUser, commentsCount,
