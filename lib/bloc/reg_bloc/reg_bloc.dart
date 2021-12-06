@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:thoughts/domain/repositories/user_repository.dart';
-import 'package:thoughts/services/reg_bloc/reg_event.dart';
-import 'package:thoughts/services/reg_bloc/reg_state.dart';
+import 'package:thoughts/repositories/user_repository.dart';
+import 'package:thoughts/bloc/reg_bloc/reg_event.dart';
+import 'package:thoughts/bloc/reg_bloc/reg_state.dart';
 
 class RegBloc extends Bloc<RegEvent, RegState> {
   late UserRepository userRepository;

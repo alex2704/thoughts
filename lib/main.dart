@@ -4,11 +4,11 @@ import 'dart:math';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:thoughts/services/auth_bloc/auth_bloc.dart';
-import 'package:thoughts/services/auth_bloc/auth_event.dart';
-import 'package:thoughts/services/auth_bloc/auth_state.dart';
-import 'package:thoughts/services/splash_screen_bloc/splash_screen_bloc.dart';
-import 'package:thoughts/services/splash_screen_bloc/splash_screen_event.dart';
+import 'package:thoughts/bloc/auth_bloc/auth_bloc.dart';
+import 'package:thoughts/bloc/auth_bloc/auth_event.dart';
+import 'package:thoughts/bloc/auth_bloc/auth_state.dart';
+import 'package:thoughts/bloc/splash_screen_bloc/splash_screen_bloc.dart';
+import 'package:thoughts/bloc/splash_screen_bloc/splash_screen_event.dart';
 import 'package:thoughts/theme/custom_theme.dart';
 import 'package:thoughts/views/feed_screen.dart';
 import 'package:thoughts/views/login_screen.dart';
@@ -93,13 +93,13 @@ class App extends StatelessWidget {
       child: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
           if (state is AuthInitialState) {
-            return LoginScreen();
+            return SplashScreen();
           } else if (state is AuthenticatedState) {
             return const OnBoardingScreen();
           } else if (state is UnAuthenticatedState) {
-            return LoginScreen();
+            return const OnBoardingScreen();
           }
-          return const FeedScreen();
+          return FeedScreen();
         },
       ),
     ));

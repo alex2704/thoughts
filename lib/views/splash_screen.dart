@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:thoughts/services/splash_screen_bloc/splash_screen_bloc.dart';
-import 'package:thoughts/services/splash_screen_bloc/splash_screen_state.dart';
+import 'package:thoughts/bloc/splash_screen_bloc/splash_screen_bloc.dart';
+import 'package:thoughts/bloc/splash_screen_bloc/splash_screen_state.dart';
 import 'package:thoughts/theme/colors.dart';
 import 'package:thoughts/views/feed_screen.dart';
 
@@ -48,7 +48,7 @@ class SplashScreen extends StatelessWidget {
                     ]
                   );
                 } else if (state is LoadedSplashScreenState) {
-                  return const FeedScreen();
+                  return FeedScreen();
                 }
                 return Container();
               },

@@ -3,9 +3,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:thoughts/services/login_bloc/login_bloc.dart';
-import 'package:thoughts/services/login_bloc/login_event.dart';
-import 'package:thoughts/services/login_bloc/login_state.dart';
+import 'package:thoughts/bloc/login_bloc/login_bloc.dart';
+import 'package:thoughts/bloc/login_bloc/login_event.dart';
+import 'package:thoughts/bloc/login_bloc/login_state.dart';
 import 'package:thoughts/theme/colors.dart';
 import 'package:thoughts/views/components/custom_widgets/custom_textfield.dart';
 import 'package:thoughts/views/components/custom_widgets/grey_elevated_button.dart';
@@ -147,7 +147,7 @@ class LoginScreenChild extends StatelessWidget {
 
   void _navigateToFeedPage(BuildContext context, User? user) {
     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {
-      return const FeedScreen();
+      return FeedScreen();
     }), (Route<dynamic> route) => false);
   }
 

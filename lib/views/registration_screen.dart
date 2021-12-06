@@ -4,9 +4,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:thoughts/services/reg_bloc/reg_bloc.dart';
-import 'package:thoughts/services/reg_bloc/reg_event.dart';
-import 'package:thoughts/services/reg_bloc/reg_state.dart';
+import 'package:thoughts/bloc/reg_bloc/reg_bloc.dart';
+import 'package:thoughts/bloc/reg_bloc/reg_event.dart';
+import 'package:thoughts/bloc/reg_bloc/reg_state.dart';
 import 'package:thoughts/theme/colors.dart';
 import 'package:thoughts/views/feed_screen.dart';
 import 'package:thoughts/views/login_screen.dart';
@@ -160,7 +160,7 @@ class RegistrationScreenChild extends StatelessWidget {
 
   void _navigateToFeedPage(BuildContext context, User? user) {
     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {
-      return const FeedScreen();
+      return FeedScreen();
     }), (Route<dynamic> route) => false);
   }
 

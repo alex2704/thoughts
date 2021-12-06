@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:thoughts/domain/repositories/user_repository.dart';
-import 'package:thoughts/services/auth_bloc/auth_event.dart';
-import 'package:thoughts/services/auth_bloc/auth_state.dart';
+import 'package:thoughts/repositories/user_repository.dart';
+import 'package:thoughts/bloc/auth_bloc/auth_event.dart';
+import 'package:thoughts/bloc/auth_bloc/auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   late UserRepository userRepository;

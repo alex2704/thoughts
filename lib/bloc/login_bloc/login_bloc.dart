@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:thoughts/domain/repositories/user_repository.dart';
-import 'package:thoughts/services/login_bloc/login_event.dart';
-import 'package:thoughts/services/login_bloc/login_state.dart';
+import 'package:thoughts/repositories/user_repository.dart';
+import 'package:thoughts/bloc/login_bloc/login_event.dart';
+import 'package:thoughts/bloc/login_bloc/login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   late UserRepository userRepository;

@@ -57,7 +57,7 @@ class OnBoardingScreen extends StatelessWidget {
 
   void _navigateToFeedPage(BuildContext context) {
     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {
-      return const FeedScreen();
+      return FeedScreen();
     }), (Route<dynamic> route) => false);
   }
 }
