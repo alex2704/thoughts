@@ -17,7 +17,7 @@ class RegBloc extends Bloc<RegEvent, RegState> {
     if (event is SignUpButtonPressedEvent) {
       try {
         yield RegLoadingState();
-        var user = await userRepository.registerWithEmailAndPassword(event.email, event.password);
+        var user = await userRepository.registerWithEmailAndPassword(event.email, event.password, event.name);
         yield RegSuccessfulState(user: user);
       } catch (e) {
         yield RegFailureState(msg: e.toString());
