@@ -36,19 +36,25 @@ class MyApp extends StatelessWidget {
   // }
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: CustomTheme.mainTheme,
-        home: FutureBuilder(
-            future: Firebase.initializeApp(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return BlocProvider(
-                  create: (context) => AuthBloc()..add(AppStartedEvent()),
-                  child: App(),
-                );
-              }
-              return SplashScreen();
-            }));
+    return MultiBlocProvider(
+      providers: [BlocProvider<AuthBloc>(create: (context) => AuthBloc())],
+      child: MaterialApp(
+          theme: CustomTheme.mainTheme,
+          home: FutureBuilder(
+              future: Firebase.initializeApp(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  final AuthBloc authBloc = BlocProvider.of<AuthBloc>(context);
+                  authBloc.add(AppStartedEvent());
+                  return App();
+                  // return BlocProvider(
+                  // create: (context) => AuthBloc()..add(AppStartedEvent()),
+                  // child: App(),
+                  // );
+                }
+                return SplashScreen();
+              })),
+    );
     // return FutureBuilder(
     //   future: Firebase.initializeApp(),
     //   builder: (context, snapshot) {
@@ -74,7 +80,7 @@ class MyApp extends StatelessWidget {
     //     create: (context) => AuthBloc(),
     //     child: App(),
     //   ),
-      // initialRoute: '/',
+    // initialRoute: '/',
     //   routes: {
     //     '/': (context) => const OnBoardingScreen(),
     //     '/feed': (context) => const FeedScreen(),
@@ -95,7 +101,7 @@ class App extends StatelessWidget {
           if (state is AuthInitialState) {
             return SplashScreen();
           } else if (state is AuthenticatedState) {
-            return const OnBoardingScreen();
+            return FeedScreen();
           } else if (state is UnAuthenticatedState) {
             return const OnBoardingScreen();
           }

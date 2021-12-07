@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:thoughts/bloc/auth_bloc/auth_bloc.dart';
+import 'package:thoughts/bloc/auth_bloc/auth_event.dart';
+import 'package:thoughts/bloc/auth_bloc/auth_state.dart';
 import 'package:thoughts/bloc/post_bloc/post_bloc.dart';
 import 'package:thoughts/bloc/post_bloc/post_event.dart';
 import 'package:thoughts/bloc/post_bloc/post_state.dart';
@@ -35,24 +38,33 @@ class FeedItemsList extends StatelessWidget {
 
           if (state is PostLoadedState) {
             return Stack(children: <Widget>[
-            ListView.builder(
-            itemCount: 5,
-                itemBuilder: (context, index) => FeedItem(
-                  post: state.loadedPost[0],
-                )),
-              Positioned(
-                  child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                          margin: const EdgeInsets.only(bottom: 10),
-                          child: MyOrangeElevatedButton(
-                            child: const Text('Войти в аккаунт'),
-                            onPressed: () {
-                              _navigateToLoginPage(context);
-                            },
-                            edgeInsetsGeometry: const EdgeInsets.symmetric(
-                                horizontal: 70, vertical: 10),
-                          ))))
+              ListView.builder(
+                  itemCount: 5,
+                  itemBuilder: (context, index) =>
+                      FeedItem(
+                        post: state.loadedPost[0],
+                      )),
+              BlocBuilder<AuthBloc, AuthState>(
+                  builder: (context, state) {
+                    if (state is AuthenticatedState) {
+                      return Container();
+                    } else {
+                      return Positioned(
+                          child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Container(
+                                  margin: const EdgeInsets.only(bottom: 10),
+                                  child: MyOrangeElevatedButton(
+                                    child: const Text('Войти в аккаунт'),
+                                    onPressed: () {
+                                      _navigateToLoginPage(context);
+                                    },
+                                    edgeInsetsGeometry: const EdgeInsets
+                                        .symmetric(
+                                        horizontal: 70, vertical: 10),
+                                  ))));
+                    }
+                  })
             ]);
           }
           return const Center(

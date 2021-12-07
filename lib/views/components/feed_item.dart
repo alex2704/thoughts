@@ -62,7 +62,7 @@ class FeedItem extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    '${this.post.description}',
+                    '${post.description}',
                     textAlign: TextAlign.left,
                   ),
                   Container(
@@ -74,7 +74,7 @@ class FeedItem extends StatelessWidget {
                           size: 25.0,
                         ),
                         Text(
-                          '${this.post.dateCreated}',
+                          '${post.dateCreated}',
                           style: TextStyle(color: CustomColors.light_grey),
                         )
                       ],

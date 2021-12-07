@@ -16,12 +16,10 @@ class AuthenticatedState extends AuthState {
   AuthenticatedState({required this.user});
 
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [user];
 }
 
 class UnAuthenticatedState extends AuthState {
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
 }
