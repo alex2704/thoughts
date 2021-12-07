@@ -13,6 +13,7 @@ import 'dart:developer' as developer;
 
 import '../login_screen.dart';
 import 'custom_widgets/orange_elevated_button.dart';
+import 'footer.dart';
 
 class FeedItemsList extends StatelessWidget {
   const FeedItemsList({Key? key}) : super(key: key);
@@ -21,57 +22,52 @@ class FeedItemsList extends StatelessWidget {
   Widget build(BuildContext context) {
     final PostBloc postBloc = BlocProvider.of<PostBloc>(context);
     postBloc.add(PostLoadEvent());
-    return BlocBuilder<PostBloc, PostState>(
-        builder: (context, state) {
-          // postBloc.add(PostLoadEvent());
-          if (state is PostEmptyState) {
-            return const Center(
-              child: Text('Ошибка. Не удалось загрузить данные'),
-            );
-          }
+    return BlocBuilder<PostBloc, PostState>(builder: (context, state) {
+      // postBloc.add(PostLoadEvent());
+      if (state is PostEmptyState) {
+        return const Center(
+          child: Text('Ошибка. Не удалось загрузить данные'),
+        );
+      }
 
-          if (state is PostLoadingState) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+      if (state is PostLoadingState) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      }
 
-          if (state is PostLoadedState) {
-            return Stack(children: <Widget>[
-              ListView.builder(
-                  itemCount: 5,
-                  itemBuilder: (context, index) =>
-                      FeedItem(
-                        post: state.loadedPost[0],
-                      )),
-              BlocBuilder<AuthBloc, AuthState>(
-                  builder: (context, state) {
-                    if (state is AuthenticatedState) {
-                      return Container();
-                    } else {
-                      return Positioned(
-                          child: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Container(
-                                  margin: const EdgeInsets.only(bottom: 10),
-                                  child: MyOrangeElevatedButton(
-                                    child: const Text('Войти в аккаунт'),
-                                    onPressed: () {
-                                      _navigateToLoginPage(context);
-                                    },
-                                    edgeInsetsGeometry: const EdgeInsets
-                                        .symmetric(
-                                        horizontal: 70, vertical: 10),
-                                  ))));
-                    }
-                  })
-            ]);
-          }
-          return const Center(
-              child:
-              Text('Произошла ошибка'));
-        }
-    );
+      if (state is PostLoadedState) {
+        return Stack(children: <Widget>[
+          ListView.builder(
+              itemCount: 5,
+              itemBuilder: (context, index) => FeedItem(
+                    post: state.loadedPost[0],
+                  )),
+          BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
+            if (state is AuthenticatedState) {
+              return Positioned(
+                  child: Align(
+                      alignment: Alignment.bottomCenter, child: Footer()));
+            } else {
+              return Positioned(
+                  child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: MyOrangeElevatedButton(
+                            child: const Text('Войти в аккаунт'),
+                            onPressed: () {
+                              _navigateToLoginPage(context);
+                            },
+                            edgeInsetsGeometry: const EdgeInsets.symmetric(
+                                horizontal: 70, vertical: 10),
+                          ))));
+            }
+          })
+        ]);
+      }
+      return const Center(child: Text('Произошла ошибка'));
+    });
   }
 
   void _navigateToLoginPage(BuildContext context) {
