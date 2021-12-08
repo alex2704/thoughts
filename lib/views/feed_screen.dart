@@ -23,9 +23,9 @@ class FeedScreen extends StatelessWidget {
       create: (context) => PostBloc(postRepository: postsRepository),
       child: Scaffold(
           appBar: Header(),
-          body: Scrollbar(
+          body: const Scrollbar(
               thickness: 5.0,
-              radius: const Radius.circular(10.0),
+              radius: Radius.circular(10.0),
               child: FeedItemsList()
               // ]
               // ),

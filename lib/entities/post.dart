@@ -4,15 +4,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:thoughts/views/components/comment.dart';
 
+import 'info_user.dart';
+
 class Post extends Equatable{
   final int idPost;
   final String? urlImg;
   final String? description;
-  final int idUser;
+  final String idUser;
   final int commentsCount;
   final int likesCount;
   final bool isLiked;
   late final DateTime dateCreated;
+  late final InfoUser infoUser;
   // final List<Comment> comments;
 
 

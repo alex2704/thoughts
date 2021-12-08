@@ -19,11 +19,18 @@ class InfoUser extends Equatable {
     postsCount = 0;
   }
 
-  InfoUser.getUser({required this.uid,
+  InfoUser.fullUser({required this.uid,
     required this.login, required this.name,
     required this.description, required this.idAvatar,
     required this.followersCount, required this.followingCount,
     required this.postsCount});
+
+  InfoUser.partInfoUser({
+    required this.uid,
+    required this.name,
+    required this.login,
+    required this.idAvatar
+});
 
   @override
   List<Object?> get props =>
@@ -31,7 +38,7 @@ class InfoUser extends Equatable {
         followingCount, postsCount];
 
   factory InfoUser.fromJson(Map<String, dynamic> json) {
-    return InfoUser.getUser(
+    return InfoUser.fullUser(
         uid: json['uid'],
         login: json['login'],
         name: json['name'],
@@ -40,6 +47,15 @@ class InfoUser extends Equatable {
         followersCount: json['followers_count'],
         followingCount: json['following_count'],
         postsCount: json['posts_count']);
+  }
+
+  factory InfoUser.fromJsonPart(Map<String, dynamic> json) {
+    return InfoUser.partInfoUser(
+      uid: json['uid'],
+      login: json['login'],
+      name: json['name'],
+      idAvatar: json['id_avatar']
+    );
   }
 
 }

@@ -7,7 +7,6 @@ import 'package:thoughts/theme/colors.dart';
 import 'package:thoughts/views/post_screen.dart';
 
 class FeedItem extends StatelessWidget {
-
   final Post post;
 
   const FeedItem({required this.post, Key? key}) : super(key: key);
@@ -16,93 +15,92 @@ class FeedItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
         child: Column(children: [
-      Container(
-        // color: Colors.orange,
-        child: IntrinsicHeight(
-            child: Row(
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/x7.jpg'),
-                  radius: 30,
+          Container(
+            // color: Colors.orange,
+            child: IntrinsicHeight(
+                child: Row(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    post.infoUser.idAvatar == 0
+                        ? const CircleAvatar(
+                            backgroundImage:
+                                AssetImage('assets/images/no_photo.jpg'),
+                            radius: 30,
+                          )
+                        : Container(),
+                    const Icon(
+                      Icons.favorite,
+                      color: Colors.redAccent,
+                      size: 30.0,
+                    )
+                  ],
                 ),
-                Icon(
-                  Icons.favorite,
-                  color: Colors.redAccent,
-                  size: 30.0,
-                )
-              ],
-            ),
-            const SizedBox(width: 15),
-            Expanded(
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                const SizedBox(width: 15),
+                Expanded(
+                  child: Column(
                     children: [
-                      Row(children: [
-                        Text(
-                          'Other name',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 20.0,
-                          ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(children: [
+                            Text(
+                              post.infoUser.name,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 20.0,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10.0,
+                            ),
+                            Text(
+                              '@${post.infoUser.login}',
+                              style: const TextStyle(
+                                  color: CustomColors.light_grey),
+                            )
+                          ]),
+                          const Icon(Icons.more_horiz,
+                              color: Colors.black, size: 30.0)
+                        ],
+                      ),
+                      Text(
+                        '${post.description}',
+                        textAlign: TextAlign.left,
+                      ),
+                      Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const FaIcon(
+                              FontAwesomeIcons.comment,
+                              size: 25.0,
+                            ),
+                            Text(
+                              '${post.dateCreated}',
+                              style: TextStyle(color: CustomColors.light_grey),
+                            )
+                          ],
                         ),
-                        SizedBox(
-                          width: 10.0,
-                        ),
-                        Text(
-                          '@nickname',
-                          style: TextStyle(color: CustomColors.light_grey),
-                        )
-                      ]),
-                      Icon(Icons.more_horiz, color: Colors.black, size: 30.0)
+                        margin: const EdgeInsets.only(top: 20),
+                      )
                     ],
                   ),
-                  Text(
-                    '${post.description}',
-                    textAlign: TextAlign.left,
-                  ),
-                  Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        FaIcon(
-                          FontAwesomeIcons.comment,
-                          size: 25.0,
-                        ),
-                        Text(
-                          '${post.dateCreated}',
-                          style: TextStyle(color: CustomColors.light_grey),
-                        )
-                      ],
-                    ),
-                    margin: const EdgeInsets.only(top: 20),
-                  )
-                ],
-              ),
-            ),
-          ],
-        )),
-        padding: const EdgeInsets.only(
-            top: 20.0, left: 20.0, bottom: 20.0, right: 20.0),
-      ),
-      const Divider(
-        color: CustomColors.light_grey,
-        thickness: 1
-      )
-    ]),
-    onTap: () => _navigateToPostPage(context)
-    );
+                ),
+              ],
+            )),
+            padding: const EdgeInsets.only(
+                top: 20.0, left: 20.0, bottom: 20.0, right: 20.0),
+          ),
+          const Divider(color: CustomColors.light_grey, thickness: 1)
+        ]),
+        onTap: () => _navigateToPostPage(context));
   }
-
 
   void _navigateToPostPage(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return const PostScreen();
     }));
   }
-
 }
