@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:thoughts/entities/post.dart';
 import 'package:thoughts/views/components/comment.dart';
+import 'package:thoughts/views/components/custom_widgets/custom_input_comment_row.dart';
 import 'package:thoughts/views/components/feed_item.dart';
 import 'package:thoughts/views/components/header.dart';
 
@@ -30,17 +31,22 @@ class PostScreen extends StatelessWidget {
                   FeedItem(post: post):
                     Container(),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 40),
+                  padding: const EdgeInsets.only(bottom: 110),
                   child: ListView.builder(
                       shrinkWrap: true,
-                      itemCount: 125,
+                      itemCount: 12,
                       primary: false,
                       itemBuilder: (BuildContext context, int index) {
                         return Comment();
                       }),
-                )
+                ),
               ],
             ),
+            const Positioned(
+                child:
+            Padding(
+              padding: EdgeInsets.only(bottom: 30),
+                child: Align(alignment: Alignment.bottomCenter, child: CustomInputCommentRow(),))),
             const Positioned(
                 child:
                     Align(alignment: Alignment.bottomCenter, child: Footer()))
