@@ -39,13 +39,13 @@ class FeedItemsList extends StatelessWidget {
       if (state is PostLoadedState) {
         return Stack(children: <Widget>[
           ListView.builder(
-              itemCount: 5,
+              itemCount: state.loadedPost.length,
               itemBuilder: (context, index) => FeedItem(
-                    post: state.loadedPost[0],
+                    post: state.loadedPost[index],
                   )),
           BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
             if (state is AuthenticatedState) {
-              return Positioned(
+              return const Positioned(
                   child: Align(
                       alignment: Alignment.bottomCenter, child: Footer()));
             } else {

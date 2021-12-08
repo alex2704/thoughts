@@ -95,12 +95,12 @@ class FeedItem extends StatelessWidget {
           ),
           const Divider(color: CustomColors.light_grey, thickness: 1)
         ]),
-        onTap: () => _navigateToPostPage(context));
+        onTap: () => _navigateToPostPage(context, post));
   }
 
-  void _navigateToPostPage(BuildContext context) {
+  void _navigateToPostPage(BuildContext context, post) {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return const PostScreen();
+      return PostScreen(post: post, isFullPost: true);
     }));
   }
 }
