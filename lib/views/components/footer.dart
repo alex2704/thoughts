@@ -49,6 +49,7 @@ class Footer extends StatelessWidget {
               child: const Icon(
                 Icons.account_circle,
                 size: 30,
+                color: CustomColors.orange,
               ),
               onTap: () => _navigateToMyProfile(context),
             )
