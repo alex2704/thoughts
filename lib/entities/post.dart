@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:thoughts/views/components/comment.dart';
+import 'package:thoughts/views/components/comment_component.dart';
 
 import 'info_user.dart';
 
-class Post extends Equatable{
-  final int idPost;
+class Post extends Equatable {
+  final String idPost;
   final String? urlImg;
   final String? description;
   final String idUser;
@@ -16,11 +16,11 @@ class Post extends Equatable{
   final bool isLiked;
   late final DateTime dateCreated;
   late final InfoUser infoUser;
+
   // final List<Comment> comments;
 
-
-  Post({
-      required this.idPost,
+  Post(
+      {required this.idPost,
       required this.urlImg,
       required this.description,
       required this.idUser,
@@ -29,14 +29,23 @@ class Post extends Equatable{
       required this.isLiked,
       required Timestamp dateCreated
       // required this.comments
-  }) {
+      }) {
     this.dateCreated = dateCreated.toDate();
   }
 
   @override
-  List<Object?> get props => [idPost, urlImg, description, idUser, commentsCount,
-  likesCount, isLiked, dateCreated, ];
-    // comments];
+  List<Object?> get props => [
+        idPost,
+        urlImg,
+        description,
+        idUser,
+        commentsCount,
+        likesCount,
+        isLiked,
+        dateCreated,
+      ];
+
+  // comments];
 
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(
