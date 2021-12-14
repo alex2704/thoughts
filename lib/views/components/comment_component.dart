@@ -13,19 +13,25 @@ class CommentComponent extends StatelessWidget {
     return Padding(padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-        children: [
-            const Text('another_user',
-              style: TextStyle(
-                fontWeight: FontWeight.w700
+        Expanded(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+              const Text('another_user',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700
+                ),
               ),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Text(comment.content
-            )]),
+              const SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: Text(comment.content
+                ),
+              )]),
+        ),
             Text('вчера',
             style: const TextStyle(
               color: Color.fromRGBO(102, 102, 102, 1),
