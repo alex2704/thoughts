@@ -20,7 +20,7 @@ class CommentsList extends StatelessWidget {
     return BlocBuilder<CommentBloc, CommentState>(builder: (context, state) {
       if (state is CommentEmptyState) {
         return const Center(
-          child: Text('Ошибка. Не удалось загрузить данные'),
+          child: Text('Ошибка. Не удалось загрузить комментарии'),
         );
       }
 

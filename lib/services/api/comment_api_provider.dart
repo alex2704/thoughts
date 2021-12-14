@@ -30,4 +30,24 @@ class CommentProvider {
 
     return _comments;
   }
+
+  Future<Comment> createCommentInFirebase(String userId, String postId, String content) async{
+    Timestamp timestamp = Timestamp.fromDate(DateTime.now());
+    _instance = FirebaseFirestore.instance;
+
+    DocumentReference docReference = _instance!.collection("comments").doc();
+    String idDocument = docReference.id;
+    await _instance!.collection("comments").doc(idDocument).set({
+      "id_comment": idDocument,
+      "id_user": userId,
+      "id_post": postId,
+      "content": content,
+      "date_created": timestamp
+    });
+
+    developer.log(idDocument);
+
+    return Comment(idComment: idDocument,
+        idUser: userId, idPost: postId, content: content, dateCreated: timestamp);
+  }
 }

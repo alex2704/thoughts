@@ -25,5 +25,17 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
         yield CommentEmptyState();
       }
     }
+
+    if (event is CreateCommentButtonPressed) {
+      yield CommentLoadingState();
+      try {
+        final Comment _addedComment = await commentRepository!.createComment(event.userId, event.postId, event.content);
+        final List<Comment> _lastLoadedCommentList = commentRepository!.getAllCommentsFromLastStorage();
+        _lastLoadedCommentList.add(_addedComment);
+        yield CommentLoadedState(loadedComment: _lastLoadedCommentList);
+      } catch (_) {
+        yield CommentErrorState();
+      }
+    }
   }
 }

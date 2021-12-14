@@ -1,18 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:thoughts/bloc/comment_bloc/comment_bloc.dart';
+import 'package:thoughts/bloc/comment_bloc/comment_event.dart';
 import 'package:thoughts/theme/colors.dart';
 
 class CustomInputCommentRow extends StatefulWidget {
-  const CustomInputCommentRow({Key? key}) : super(key: key);
+  final String postId;
+
+  const CustomInputCommentRow({required this.postId, Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _InputCommentRowState();
+    return _InputCommentRowState(postId: postId);
   }
 }
 
 class _InputCommentRowState extends State<CustomInputCommentRow> {
   final controller = TextEditingController();
+  final String postId;
+
+  _InputCommentRowState({required this.postId});
 
   @override
   void dispose() {
@@ -22,6 +30,7 @@ class _InputCommentRowState extends State<CustomInputCommentRow> {
 
   @override
   Widget build(BuildContext context) {
+    final CommentBloc commentBloc = BlocProvider.of<CommentBloc>(context);
     String commentText;
     return Container(
       color: Colors.white,
@@ -64,6 +73,7 @@ class _InputCommentRowState extends State<CustomInputCommentRow> {
                   print(commentText);
                   FocusScope.of(context).unfocus();
                   controller.clear();
+                  commentBloc.add(CreateCommentButtonPressed(userId: 'vo3XZwhI7uh3AjIPzmLrspQMR382', content: commentText, postId: postId));
                 },
                 elevation: 0,
                 focusElevation: 0,
