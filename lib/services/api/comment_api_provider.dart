@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:thoughts/entities/comment.dart';
 import 'dart:developer' as developer;
 
+import 'package:thoughts/entities/info_user.dart';
+
 class CommentProvider {
   FirebaseFirestore? _instance;
   final List<Comment> _comments = [];
@@ -25,6 +27,14 @@ class CommentProvider {
       if (userId == cat.idUser) {
         cat.isOwn = true;
       }
+
+      //getting info about user
+      DocumentReference user = _instance!.doc("users/${cat.idUser}");
+
+      DocumentSnapshot userSnapshot = await user.get();
+      var userData = userSnapshot.data() as dynamic;
+      cat.infoUser = InfoUser.fromJson(userData);
+
       _comments.add(cat);
     }
 
@@ -44,8 +54,6 @@ class CommentProvider {
       "content": content,
       "date_created": timestamp
     });
-
-    developer.log(idDocument);
 
     return Comment(idComment: idDocument,
         idUser: userId, idPost: postId, content: content, dateCreated: timestamp);

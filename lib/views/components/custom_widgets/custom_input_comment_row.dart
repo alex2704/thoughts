@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:thoughts/bloc/comment_bloc/comment_bloc.dart';
 import 'package:thoughts/bloc/comment_bloc/comment_event.dart';
+import 'package:thoughts/constants.dart';
+import 'package:thoughts/shared_preferences_util.dart';
 import 'package:thoughts/theme/colors.dart';
 
 class CustomInputCommentRow extends StatefulWidget {
@@ -19,8 +21,16 @@ class CustomInputCommentRow extends StatefulWidget {
 class _InputCommentRowState extends State<CustomInputCommentRow> {
   final controller = TextEditingController();
   final String postId;
+  late final String uid;
 
   _InputCommentRowState({required this.postId});
+
+
+  @override
+  void initState() {
+    super.initState();
+    SharedPreferencesUtil.getData<String>(Constants.uid).then((value) => uid = value);
+  }
 
   @override
   void dispose() {
@@ -73,7 +83,7 @@ class _InputCommentRowState extends State<CustomInputCommentRow> {
                   print(commentText);
                   FocusScope.of(context).unfocus();
                   controller.clear();
-                  commentBloc.add(CreateCommentButtonPressed(userId: 'vo3XZwhI7uh3AjIPzmLrspQMR382', content: commentText, postId: postId));
+                  commentBloc.add(CreateCommentButtonPressed(userId: uid, content: commentText, postId: postId));
                 },
                 elevation: 0,
                 focusElevation: 0,

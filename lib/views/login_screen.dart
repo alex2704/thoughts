@@ -11,6 +11,8 @@ import 'package:thoughts/views/components/custom_widgets/custom_textfield.dart';
 import 'package:thoughts/views/components/custom_widgets/grey_elevated_button.dart';
 import 'package:thoughts/views/registration_screen.dart';
 
+import '../constants.dart';
+import '../shared_preferences_util.dart';
 import 'feed_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -52,6 +54,7 @@ class LoginScreenChild extends StatelessWidget {
                       } else if (state is LoginFailureState) {
                         _buildFailureUi(state.message);
                       } else if (state is LoginSuccessState) {
+                        SharedPreferencesUtil.saveData<String>(Constants.uid, state.user!.uid);
                         _navigateToFeedPage(context, state.user);
                       }
                     },

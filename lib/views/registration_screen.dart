@@ -7,6 +7,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:thoughts/bloc/reg_bloc/reg_bloc.dart';
 import 'package:thoughts/bloc/reg_bloc/reg_event.dart';
 import 'package:thoughts/bloc/reg_bloc/reg_state.dart';
+import 'package:thoughts/constants.dart';
+import 'package:thoughts/shared_preferences_util.dart';
 import 'package:thoughts/theme/colors.dart';
 import 'package:thoughts/views/feed_screen.dart';
 import 'package:thoughts/views/login_screen.dart';
@@ -54,6 +56,7 @@ class RegistrationScreenChild extends StatelessWidget {
                       } else if (state is RegFailureState) {
                         _buildFailureUi(state.msg);
                       } else if (state is RegSuccessfulState) {
+                        SharedPreferencesUtil.saveData<String>(Constants.uid, state.user!.uid);
                         _navigateToFeedPage(context, state.user);
                       }
                     },

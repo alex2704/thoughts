@@ -19,8 +19,8 @@ class CommentComponent extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-              const Text('another_user',
-                style: TextStyle(
+               Text(comment.infoUser.name,
+                style: const TextStyle(
                   fontWeight: FontWeight.w700
                 ),
               ),

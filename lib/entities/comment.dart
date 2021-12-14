@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:thoughts/entities/info_user.dart';
 
 class Comment extends Equatable {
   final String idComment;
@@ -8,6 +9,7 @@ class Comment extends Equatable {
   final String content;
   late final DateTime dateCreated;
   late final bool isOwn;
+  late final InfoUser infoUser;
 
   Comment(
       {required this.idComment,
