@@ -37,7 +37,8 @@ class Comment extends Equatable {
   _toDisplayedDate(Timestamp timestamp) {
     DateTime dateCreated = timestamp.toDate();
     DateTime now = DateTime.now();
-    int diff = _hoursBetween(dateCreated, now);
+    var comparableTime = DateTime(now.year, now.month, now.day + 1, 00, 00);
+    int diff = _hoursBetween(dateCreated, comparableTime);
     if (diff <= 24) {
       final df = DateFormat('HH:mm').format(dateCreated);
       return df;
