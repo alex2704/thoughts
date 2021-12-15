@@ -55,7 +55,18 @@ class CommentProvider {
       "date_created": timestamp
     });
 
-    return Comment(idComment: idDocument,
+    Comment comment = Comment(idComment: idDocument,
         idUser: userId, idPost: postId, content: content, dateCreated: timestamp);
+
+    //getting info about user
+    DocumentReference user = _instance!.doc("users/${userId}");
+
+    DocumentSnapshot userSnapshot = await user.get();
+    var userData = userSnapshot.data() as dynamic;
+    comment.infoUser = InfoUser.fromJson(userData);
+
+    _comments.add(comment);
+
+    return comment;
   }
 }

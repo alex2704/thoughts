@@ -32,11 +32,17 @@ class CommentComponent extends StatelessWidget {
                 ),
               )]),
         ),
-            Text('вчера',
-            style: const TextStyle(
-              color: Color.fromRGBO(102, 102, 102, 1),
-              fontSize: 12
-            ),)
+            const SizedBox(
+              width: 5,
+            ),
+            SizedBox(
+              width: 40,
+              child: Text(comment.dateCreated,
+              style: const TextStyle(
+                color: Color.fromRGBO(102, 102, 102, 1),
+                fontSize: 12
+              ),),
+            )
           ]
         ));
   }
