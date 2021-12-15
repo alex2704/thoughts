@@ -39,7 +39,7 @@ class Comment extends Equatable {
     DateTime now = DateTime.now();
     int diff = _hoursBetween(dateCreated, now);
     if (diff <= 24) {
-      final df = DateFormat('hh:mm').format(dateCreated);
+      final df = DateFormat('HH:mm').format(dateCreated);
       return df;
     } else if (diff > 24 && diff <= 48) {
       return 'вчера';

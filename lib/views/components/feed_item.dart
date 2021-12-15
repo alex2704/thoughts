@@ -78,8 +78,8 @@ class FeedItem extends StatelessWidget {
                               size: 25.0,
                             ),
                             Text(
-                              '${post.dateCreated}',
-                              style: TextStyle(color: CustomColors.light_grey),
+                              post.dateCreated,
+                              style: const TextStyle(color: CustomColors.light_grey),
                             )
                           ],
                         ),

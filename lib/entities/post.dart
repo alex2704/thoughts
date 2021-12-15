@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:intl/intl.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:thoughts/views/components/comment_component.dart';
 
 import 'info_user.dart';
@@ -14,7 +16,7 @@ class Post extends Equatable {
   final int commentsCount;
   final int likesCount;
   final bool isLiked;
-  late final DateTime dateCreated;
+  late final String dateCreated;
   late final InfoUser infoUser;
 
   // final List<Comment> comments;
@@ -30,7 +32,7 @@ class Post extends Equatable {
       required Timestamp dateCreated
       // required this.comments
       }) {
-    this.dateCreated = dateCreated.toDate();
+    this.dateCreated = _toDisplayedDate(dateCreated);
   }
 
   @override
@@ -58,5 +60,38 @@ class Post extends Equatable {
       isLiked: json['is_liked'],
       dateCreated: json['date_created'],
     );
+  }
+
+  _toDisplayedDate(Timestamp timestamp) {
+    DateTime dateCreated = timestamp.toDate();
+    DateTime now = DateTime.now();
+    int diff = _hoursBetween(dateCreated, now);
+    if (diff <= 24) {
+      // Jiffy.locale("ru").then((value) {
+        String countHours = Jiffy(dateCreated).fromNow();
+        return countHours;
+        // int lastDec = diff % 10;
+        // if (lastDec == 1 && (diff < 10 || diff > 20)) {
+        //   return 'час назад';
+        // } else if ((diff < 10 || diff > 21) &&
+        //     (lastDec == 2 || lastDec == 3 || lastDec == 4)) {
+        //   return diff.toString() + ' часа назад';
+        // } else {
+        //   // if (diff > 4 && diff <= 20){
+        //   return diff.toString() + ' часов назад';
+        // }
+        // });
+    } else if (diff > 24 && diff <= 48) {
+      return 'вчера';
+    } else {
+      final df = DateFormat('dd.MM.yyyy').format(dateCreated);
+      return df.toString();
+    }
+  }
+
+  int _hoursBetween(DateTime from, DateTime to) {
+    from = DateTime(from.year, from.month, from.day, from.hour, from.minute);
+    to = DateTime(to.year, to.month, to.day, from.hour, from.minute);
+    return (to.difference(from).inHours);
   }
 }
