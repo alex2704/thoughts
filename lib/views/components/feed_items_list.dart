@@ -41,7 +41,8 @@ class FeedItemsList extends StatelessWidget {
       if (state is PostLoadedState) {
         return Stack(children: <Widget>[
           ListView.builder(
-              itemCount: state.loadedPost.length,
+              // itemCount: state.loadedPost.length,
+            itemCount: 1,
               itemBuilder: (context, index) => FeedItem(
                     post: state.loadedPost[index],
                   )),

@@ -3,9 +3,12 @@ import 'package:flutter/material.dart.';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart';
+import 'package:like_button/like_button.dart';
 import 'package:thoughts/bloc/like_bloc/like_bloc.dart';
 import 'package:thoughts/bloc/like_bloc/like_event.dart';
 import 'package:thoughts/bloc/like_bloc/like_state.dart';
+import 'package:thoughts/bloc/post_bloc/post_bloc.dart';
+import 'package:thoughts/bloc/post_bloc/post_event.dart';
 import 'package:thoughts/entities/post.dart';
 import 'package:thoughts/theme/colors.dart';
 import 'package:thoughts/views/post_screen.dart';
@@ -26,7 +29,8 @@ class FeedItem extends StatelessWidget {
 class FeedItemChild extends StatelessWidget {
 
   final Post post;
-  late bool isLiked = false;
+  late bool isLiked;
+  late final postBloc;
 
   FeedItemChild({required this.post, Key? key}) : super(key: key);
 
@@ -35,6 +39,8 @@ class FeedItemChild extends StatelessWidget {
     // final icon = isLiked ? Icons.favorite : Icons.favorite_outline;
     // final color = isLiked ? Colors.red : Colors.white;
     final LikeBloc likeBloc = BlocProvider.of<LikeBloc>(context);
+    postBloc = BlocProvider.of<PostBloc>(context);
+    isLiked = post.isLiked;
     // return BlocProvider<LikeBloc>(
     //   create: (context) => LikeBloc(post.isLiked ? LikePutState() : LikeEmptyState()),
     //   child:
@@ -54,8 +60,13 @@ class FeedItemChild extends StatelessWidget {
                           radius: 30,
                         )
                       : Container(),
+                  // LikeButton(
+                  //     isLiked: post.isLiked,
+                  //     bubblesSize: 0,
+                  //     onTap: onLikeButtonTapped),
                     BlocBuilder<LikeBloc, LikeState>(
                       builder: (context, state) {
+                        print(state);
                         if (state is LikeEmptyState) {
                           return SizedBox(
                             height: 37,
@@ -64,9 +75,12 @@ class FeedItemChild extends StatelessWidget {
                               icon: const Icon(
                                 Icons.favorite_outline, color: Colors.black, size: 30,),
                               onPressed: () {
-                                isLiked = !post.isLiked;
-                                post.isLiked = isLiked;
-                                likeBloc.add(LikeButtonPressedEvent(isLiked: post.isLiked));
+                                isLiked = !isLiked;
+                                onLikeButtonTapped(isLiked);
+                                // isLiked = !post.isLiked;
+                                // post.isLiked = isLiked;
+                                likeBloc.add(LikeButtonPressedEvent(isLiked: isLiked));
+                                // postBloc.add(PostLikedEvent(post: post));
                               },
                             ),
                           );
@@ -77,9 +91,12 @@ class FeedItemChild extends StatelessWidget {
                               icon: const Icon(
                                 Icons.favorite, color: Colors.red, size: 30,),
                               onPressed: () {
-                                isLiked = !post.isLiked;
-                                post.isLiked = isLiked;
-                                likeBloc.add(LikeButtonPressedEvent(isLiked: post.isLiked));
+                                isLiked = !isLiked;
+                                onLikeButtonTapped(isLiked);
+                                // isLiked = !post.isLiked;
+                                // post.isLiked = isLiked;
+                                likeBloc.add(LikeButtonPressedEvent(isLiked: isLiked));
+                                // postBloc.add(PostLikedEvent(post: post));
                               },
                             ),
                           );
@@ -125,9 +142,12 @@ class FeedItemChild extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const FaIcon(
-                            FontAwesomeIcons.comment,
-                            size: 25.0,
+                          InkWell(
+                            onTap: () => _goBack(context),
+                            child: const FaIcon(
+                              FontAwesomeIcons.comment,
+                              size: 25.0,
+                            ),
                           ),
                           Text(
                             post.dateCreated,
@@ -155,5 +175,16 @@ class FeedItemChild extends StatelessWidget {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return PostScreen(post: post, isFullPost: true);
     }));
+  }
+
+  void _goBack(BuildContext context) {
+    Navigator.of(context).pop();
+  }
+
+  Future<bool> onLikeButtonTapped(bool isLiked) async {
+    postBloc.add(PostLikedEvent(post: post));
+    // isLiked = !post.isLiked;
+    // post.isLiked = isLiked;
+    return isLiked;
   }
 }

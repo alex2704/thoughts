@@ -31,5 +31,10 @@ class PostBloc extends Bloc<PostEvent, PostState>{
     else if (event is PostClearEvent) {
       yield PostEmptyState();
     }
+    else if(event is PostLikedEvent) {
+      postRepository!.changeLikeStatus(event.post);
+      List<Post> _postFromStorageList = postRepository!.getAllPostsFromStorage();
+      yield PostLoadedState(loadedPost: _postFromStorageList);
+    }
   }
 }

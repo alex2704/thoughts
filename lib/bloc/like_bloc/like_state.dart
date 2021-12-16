@@ -1,5 +1,13 @@
-abstract class LikeState {}
+import 'package:equatable/equatable.dart';
 
-class LikePutState extends LikeState {}
+abstract class LikeState extends Equatable{}
 
-class LikeEmptyState extends LikeState {}
+class LikePutState extends LikeState {
+  @override
+  List<Object?> get props => [];
+}
+
+class LikeEmptyState extends LikeState {
+  @override
+  List<Object?> get props => [];
+}

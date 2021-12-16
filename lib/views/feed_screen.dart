@@ -19,9 +19,7 @@ class FeedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<PostBloc>(
-      create: (context) => PostBloc(postRepository: postsRepository),
-      child: Scaffold(
+    return Scaffold(
           appBar: Header(),
           body: const Scrollbar(
               thickness: 5.0,
@@ -29,7 +27,7 @@ class FeedScreen extends StatelessWidget {
               child: FeedItemsList()
               // ]
               // ),
-              )),
+              )
     );
   }
 }

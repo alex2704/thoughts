@@ -9,6 +9,7 @@ import 'package:thoughts/bloc/auth_bloc/auth_event.dart';
 import 'package:thoughts/bloc/auth_bloc/auth_state.dart';
 import 'package:thoughts/bloc/splash_screen_bloc/splash_screen_bloc.dart';
 import 'package:thoughts/bloc/splash_screen_bloc/splash_screen_event.dart';
+import 'package:thoughts/repositories/post_repository.dart';
 import 'package:thoughts/theme/custom_theme.dart';
 import 'package:thoughts/views/feed_screen.dart';
 import 'package:thoughts/views/login_screen.dart';
@@ -17,6 +18,7 @@ import 'package:thoughts/views/post_screen.dart';
 import 'package:thoughts/views/registration_screen.dart';
 import 'package:thoughts/views/splash_screen.dart';
 
+import 'bloc/post_bloc/post_bloc.dart';
 import 'color_block.dart';
 
 void main() {
@@ -37,7 +39,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider<AuthBloc>(create: (context) => AuthBloc())],
+      providers: [BlocProvider<AuthBloc>(create: (context) => AuthBloc()),
+    BlocProvider<PostBloc>(
+    create: (context) => PostBloc(postRepository: PostRepository()))],
       child: MaterialApp(
           theme: CustomTheme.mainTheme,
           home: FutureBuilder(
