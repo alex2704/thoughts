@@ -6,6 +6,7 @@ import 'package:thoughts/bloc/post_bloc/post_bloc.dart';
 import 'package:thoughts/bloc/post_bloc/post_event.dart';
 import 'package:thoughts/entities/post.dart';
 import 'package:thoughts/theme/colors.dart';
+import 'package:thoughts/views/components/custom_widgets/heart_animation_widget.dart';
 import 'package:thoughts/views/post_screen.dart';
 
 class FeedItem extends StatefulWidget {
@@ -60,15 +61,19 @@ class FeedItemState extends State<FeedItem> {
                     : Container(),
                 SizedBox(
                   height: 37,
-                  child: IconButton(
-                      onPressed: () => setState(() {
-                        _isLiked = onLikeButtonTapped(_isLiked);
-                          }),
-                      icon: Icon(
-                        icon,
-                        color: color,
-                        size: 30,
-                      )),
+                  child: HeartAnimationWidget(
+                    isAnimating: _isLiked,
+                    child: IconButton(
+                      splashColor: Colors.transparent,
+                        onPressed: () => setState(() {
+                          _isLiked = onLikeButtonTapped(_isLiked);
+                            }),
+                        icon: Icon(
+                          icon,
+                          color: color,
+                          size: 30,
+                        )),
+                  ),
                 )
               ],
             ),

@@ -6,7 +6,7 @@ class HeartAnimationWidget extends StatefulWidget {
   final Duration duration;
 
 
-  const HeartAnimationWidget.name({
+  const HeartAnimationWidget({
     Key? key,
     required this.child,
     required this.isAnimating,
@@ -47,6 +47,7 @@ class _HeartAnimationState extends State<HeartAnimationWidget> with SingleTicker
 
   Future doAnimation() async {
     await controller.forward();
+    await controller.reverse();
   }
 
   @override
