@@ -15,7 +15,7 @@ class Post extends Equatable {
   final String idUser;
   final int commentsCount;
   final int likesCount;
-  final bool isLiked;
+  late bool isLiked;
   late final String dateCreated;
   late final InfoUser infoUser;
 

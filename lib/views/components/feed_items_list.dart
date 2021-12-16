@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:thoughts/bloc/auth_bloc/auth_bloc.dart';
 import 'package:thoughts/bloc/auth_bloc/auth_event.dart';
 import 'package:thoughts/bloc/auth_bloc/auth_state.dart';
+import 'package:thoughts/bloc/like_bloc/like_bloc.dart';
+import 'package:thoughts/bloc/like_bloc/like_state.dart';
 import 'package:thoughts/bloc/post_bloc/post_bloc.dart';
 import 'package:thoughts/bloc/post_bloc/post_event.dart';
 import 'package:thoughts/bloc/post_bloc/post_state.dart';
