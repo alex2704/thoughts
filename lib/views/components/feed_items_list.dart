@@ -2,14 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:thoughts/bloc/auth_bloc/auth_bloc.dart';
-import 'package:thoughts/bloc/auth_bloc/auth_event.dart';
 import 'package:thoughts/bloc/auth_bloc/auth_state.dart';
-import 'package:thoughts/bloc/like_bloc/like_bloc.dart';
-import 'package:thoughts/bloc/like_bloc/like_state.dart';
 import 'package:thoughts/bloc/post_bloc/post_bloc.dart';
 import 'package:thoughts/bloc/post_bloc/post_event.dart';
 import 'package:thoughts/bloc/post_bloc/post_state.dart';
-import 'package:thoughts/entities/post.dart';
 import 'package:thoughts/views/components/feed_item.dart';
 import 'dart:developer' as developer;
 
@@ -25,7 +21,6 @@ class FeedItemsList extends StatelessWidget {
     final PostBloc postBloc = BlocProvider.of<PostBloc>(context);
     postBloc.add(PostLoadEvent());
     return BlocBuilder<PostBloc, PostState>(builder: (context, state) {
-      // postBloc.add(PostLoadEvent());
       if (state is PostEmptyState) {
         return const Center(
           child: Text('Ошибка. Не удалось загрузить данные'),
@@ -41,8 +36,7 @@ class FeedItemsList extends StatelessWidget {
       if (state is PostLoadedState) {
         return Stack(children: <Widget>[
           ListView.builder(
-              // itemCount: state.loadedPost.length,
-            itemCount: 1,
+              itemCount: state.loadedPost.length,
               itemBuilder: (context, index) => FeedItem(
                     post: state.loadedPost[index],
                   )),

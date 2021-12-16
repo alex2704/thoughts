@@ -11,7 +11,5 @@ class PostRepository {
   final PostProvider _postsProvider = PostProvider();
   Future<List<Post>> getAllPosts() => _postsProvider.getPostsCollectionFromFirebase();
   List<Post> getAllPostsFromStorage() => _postsProvider.getPosts();
-  changeLikeStatus(Post post) {
-    post.isLiked = !post.isLiked;
-  }
+  void changeLikeStatus (Post post) => _postsProvider.changeLikeStatus(post);
 }

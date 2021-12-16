@@ -13,6 +13,10 @@ class PostProvider {
     return _posts;
   }
 
+  void changeLikeStatus(Post post) {
+    post.isLiked = !post.isLiked;
+  }
+
   Future<List<Post>> getPostsCollectionFromFirebase() async {
     _instance = FirebaseFirestore.instance;
 
