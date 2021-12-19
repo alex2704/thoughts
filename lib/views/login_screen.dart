@@ -3,6 +3,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:thoughts/bloc/auth_bloc/auth_bloc.dart';
+import 'package:thoughts/bloc/auth_bloc/auth_event.dart';
 import 'package:thoughts/bloc/login_bloc/login_bloc.dart';
 import 'package:thoughts/bloc/login_bloc/login_event.dart';
 import 'package:thoughts/bloc/login_bloc/login_state.dart';
@@ -32,13 +34,14 @@ class LoginScreenChild extends StatelessWidget {
   TextEditingController passwordController = TextEditingController();
 
   late LoginBloc _loginBloc;
+  late AuthBloc _authBloc;
 
   LoginScreenChild({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     _loginBloc = BlocProvider.of<LoginBloc>(context);
-
+    _authBloc = BlocProvider.of<AuthBloc>(context);
     return Scaffold(
       backgroundColor: CustomColors.orange,
       body: SingleChildScrollView(
@@ -54,7 +57,9 @@ class LoginScreenChild extends StatelessWidget {
                       } else if (state is LoginFailureState) {
                         _buildFailureUi(state.message);
                       } else if (state is LoginSuccessState) {
+                        _authBloc.add(UserSignedInEvent());
                         SharedPreferencesUtil.saveData<String>(Constants.uid, state.user!.uid);
+                        print(state.user!.uid);
                         _navigateToFeedPage(context, state.user);
                       }
                     },

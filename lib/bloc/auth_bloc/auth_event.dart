@@ -5,7 +5,10 @@ abstract class AuthEvent extends Equatable {
 
 class AppStartedEvent extends AuthEvent {
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
+}
 
+class UserSignedInEvent extends AuthEvent {
+  @override
+  List<Object?> get props => [];
 }

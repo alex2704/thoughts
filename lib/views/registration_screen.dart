@@ -4,6 +4,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:thoughts/bloc/auth_bloc/auth_bloc.dart';
+import 'package:thoughts/bloc/auth_bloc/auth_event.dart';
 import 'package:thoughts/bloc/reg_bloc/reg_bloc.dart';
 import 'package:thoughts/bloc/reg_bloc/reg_event.dart';
 import 'package:thoughts/bloc/reg_bloc/reg_state.dart';
@@ -35,11 +37,13 @@ class RegistrationScreenChild extends StatelessWidget {
   TextEditingController repeatPasswordController = TextEditingController();
 
   late RegBloc _regBloc;
+  late AuthBloc _authBloc;
 
   RegistrationScreenChild({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    _authBloc = BlocProvider.of<AuthBloc>(context);
     _regBloc = BlocProvider.of<RegBloc>(context);
     return Scaffold(
       backgroundColor: CustomColors.orange,
@@ -56,6 +60,7 @@ class RegistrationScreenChild extends StatelessWidget {
                       } else if (state is RegFailureState) {
                         _buildFailureUi(state.msg);
                       } else if (state is RegSuccessfulState) {
+                        _authBloc.add(UserSignedInEvent());
                         SharedPreferencesUtil.saveData<String>(Constants.uid, state.user!.uid);
                         _navigateToFeedPage(context, state.user);
                       }
