@@ -36,5 +36,16 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
         yield CommentErrorState();
       }
     }
+
+    if (event is DeleteCommentButtonPressed) {
+      yield CommentLoadingState();
+      try {
+        await commentRepository!.deleteComment(event.commentId);
+        final List<Comment> _lastLoadedCommentListFromStorage = commentRepository!.getAllCommentsFromLastStorage();
+        yield CommentLoadedState(loadedComment: _lastLoadedCommentListFromStorage);
+      } catch(_) {
+        yield CommentErrorState();
+      }
+    }
   }
 }

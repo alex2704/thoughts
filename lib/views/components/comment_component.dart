@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:thoughts/bloc/comment_bloc/comment_bloc.dart';
+import 'package:thoughts/bloc/comment_bloc/comment_event.dart';
 import 'package:thoughts/entities/comment.dart';
 
 class CommentComponent extends StatelessWidget {
@@ -10,6 +13,7 @@ class CommentComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final CommentBloc commentBloc = BlocProvider.of<CommentBloc>(context);
     return Padding(padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -37,11 +41,19 @@ class CommentComponent extends StatelessWidget {
             ),
             SizedBox(
               width: 40,
-              child: Text(comment.dateCreated,
-              style: const TextStyle(
-                color: Color.fromRGBO(102, 102, 102, 1),
-                fontSize: 12
-              ),),
+              child: Column(
+                children: [Text(comment.dateCreated,
+                style: const TextStyle(
+                  color: Color.fromRGBO(102, 102, 102, 1),
+                  fontSize: 12
+                ),),
+
+                comment.isOwn ?
+                IconButton(onPressed: () => {
+                  commentBloc.add(DeleteCommentButtonPressed(commentId: comment.idComment))
+                },
+                    icon: const Icon(Icons.delete_outline, size: 25,) ) : Container()],
+              ),
             )
           ]
         ));

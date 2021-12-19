@@ -13,4 +13,9 @@ class CreateCommentButtonPressed extends CommentEvent {
   CreateCommentButtonPressed({required this.userId, required this.postId, required this.content});
 }
 
+class DeleteCommentButtonPressed extends CommentEvent {
+  String commentId;
+  DeleteCommentButtonPressed({required this.commentId});
+}
+
 class CommentClearEvent extends CommentEvent {}

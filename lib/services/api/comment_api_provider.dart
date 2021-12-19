@@ -27,6 +27,9 @@ class CommentProvider {
       if (userId == cat.idUser) {
         cat.isOwn = true;
       }
+      else {
+        cat.isOwn = false;
+      }
 
       //getting info about user
       DocumentReference user = _instance!.doc("users/${cat.idUser}");
@@ -64,9 +67,16 @@ class CommentProvider {
     DocumentSnapshot userSnapshot = await user.get();
     var userData = userSnapshot.data() as dynamic;
     comment.infoUser = InfoUser.fromJson(userData);
-
+    comment.isOwn = true;
     _comments.add(comment);
 
     return comment;
+  }
+
+  Future<void> deleteCommentInFirebase(String commentId) async {
+    _instance = FirebaseFirestore.instance;
+    CollectionReference commentsCollection = _instance!.collection("comments");
+    await _instance!.doc("comments/$commentId").delete();
+    _comments.removeWhere((element) => element.idComment == commentId);
   }
 }
