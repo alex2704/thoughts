@@ -1,8 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:thoughts/bloc/post_bloc/post_event.dart';
 import 'package:thoughts/bloc/post_bloc/post_state.dart';
+import 'package:thoughts/core/error/shared_preferences_exception.dart';
 import 'package:thoughts/entities/post.dart';
 import 'package:thoughts/repositories/post_repository.dart';
 import 'dart:developer' as developer;
@@ -28,7 +30,11 @@ class PostBloc extends Bloc<PostEvent, PostState>{
         String _uid = await SharedPreferencesUtil.getData<String>(Constants.uid);
         final List<Post> _loadedPostList = await postRepository!.getAllPosts(_uid);
         yield PostLoadedState(loadedPost: _loadedPostList);
-      } catch (_) {
+      } on SharedPreferencesException {
+        final List<Post> _loadedPostList = await postRepository!.getAllPostsWithoutLogin();
+        yield PostLoadedState(loadedPost: _loadedPostList);
+      }
+      catch (_) {
         yield PostEmptyState();
       }
     }

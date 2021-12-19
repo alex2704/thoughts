@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:thoughts/core/error/shared_preferences_exception.dart';
 
 class SharedPreferencesUtil {
   static saveData<T>(String key, T value) async {
@@ -24,21 +25,24 @@ class SharedPreferencesUtil {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     late T res;
-    switch(T) {
-      case String:
-        res = prefs.getString(key) as T;
-        break;
-      case int:
-        res = prefs.getInt(key) as T;
-        break;
-      case bool:
-        res = prefs.getBool(key) as T;
-        break;
-      case double:
-        res = prefs.getDouble(key) as T;
-        break;
+    try {
+      switch (T) {
+        case String:
+          res = prefs.getString(key) as T;
+          break;
+        case int:
+          res = prefs.getInt(key) as T;
+          break;
+        case bool:
+          res = prefs.getBool(key) as T;
+          break;
+        case double:
+          res = prefs.getDouble(key) as T;
+          break;
+      }
+    } catch (e) {
+      throw SharedPreferencesException(e.toString());
     }
-
     return res;
   }
 }

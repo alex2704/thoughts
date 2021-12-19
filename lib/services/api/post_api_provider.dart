@@ -65,4 +65,30 @@ class PostProvider {
 
     return _posts;
   }
+
+  Future<List<Post>> getPostsCollectionWithoutLoginFromFirebase() async {
+    _instance = FirebaseFirestore.instance;
+
+    //getting info about posts
+    CollectionReference posts = _instance!.collection("posts");
+
+    DocumentSnapshot snapshot = await posts.doc('Post1').get();
+    var data = snapshot.data() as Map;
+    var postsData = data['allposts'] as List<dynamic>;
+
+    for (var catData in postsData) {
+      Post cat = Post.fromJson(catData);
+
+      //getting info about users
+      DocumentReference user = _instance!.doc("users/${cat.idUser}");
+
+      DocumentSnapshot userSnapshot = await user.get();
+      var userData = userSnapshot.data() as dynamic;
+      cat.infoUser = InfoUser.fromJson(userData);
+      cat.isLiked = false;
+      _posts.add(cat);
+    }
+
+    return _posts;
+  }
 }
