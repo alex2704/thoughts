@@ -80,7 +80,6 @@ class _InputCommentRowState extends State<CustomInputCommentRow> {
                 onPressed: () {
                   commentText = controller.text;
                   if (commentText.isEmpty) return;
-                  print(commentText);
                   FocusScope.of(context).unfocus();
                   controller.clear();
                   commentBloc.add(CreateCommentButtonPressed(userId: uid, content: commentText, postId: postId));

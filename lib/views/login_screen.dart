@@ -59,7 +59,6 @@ class LoginScreenChild extends StatelessWidget {
                       } else if (state is LoginSuccessState) {
                         _authBloc.add(UserSignedInEvent());
                         SharedPreferencesUtil.saveData<String>(Constants.uid, state.user!.uid);
-                        print(state.user!.uid);
                         _navigateToFeedPage(context, state.user);
                       }
                     },
