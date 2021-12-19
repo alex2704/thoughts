@@ -4,8 +4,6 @@ import 'package:thoughts/entities/post.dart';
 import 'dart:developer' as developer;
 
 class PostProvider {
-
-
   FirebaseFirestore? _instance;
   final List<Post> _posts = [];
 
@@ -13,8 +11,24 @@ class PostProvider {
     return _posts;
   }
 
-  void changeLikeStatus(Post post) {
+  void changeLikeStatus(Post post, String userId) async {
     post.isLiked = !post.isLiked;
+
+    _instance = FirebaseFirestore.instance;
+    CollectionReference likesCollection = _instance!.collection("likes");
+    if (post.isLiked) {
+      // create new instance
+      await likesCollection.add({"id_post": post.idPost, "id_user": userId});
+    } else {
+
+      // delete new instance
+      var query = likesCollection.where("id_post", isEqualTo: post.idPost).where("id_user", isEqualTo: userId);
+      query.get().then((querySnapshot) => {
+        for (DocumentSnapshot ds in querySnapshot.docs) {
+          ds.reference.delete()
+      }
+      });
+    }
   }
 
   Future<List<Post>> getPostsCollectionFromFirebase() async {

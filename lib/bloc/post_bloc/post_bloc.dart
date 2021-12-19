@@ -7,6 +7,9 @@ import 'package:thoughts/entities/post.dart';
 import 'package:thoughts/repositories/post_repository.dart';
 import 'dart:developer' as developer;
 
+import '../../constants.dart';
+import '../../shared_preferences_util.dart';
+
 class PostBloc extends Bloc<PostEvent, PostState>{
 
   final PostRepository? postRepository;
@@ -32,7 +35,8 @@ class PostBloc extends Bloc<PostEvent, PostState>{
       yield PostEmptyState();
     }
     else if(event is PostLikedEvent) {
-      postRepository!.changeLikeStatus(event.post);
+      String _uid = await SharedPreferencesUtil.getData<String>(Constants.uid);
+      postRepository!.changeLikeStatus(event.post, _uid);
       List<Post> _postFromStorageList = postRepository!.getAllPostsFromStorage();
       yield PostLoadedState(loadedPost: _postFromStorageList);
     }

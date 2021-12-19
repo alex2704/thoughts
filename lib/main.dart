@@ -17,9 +17,11 @@ import 'package:thoughts/views/onboarding_screen.dart';
 import 'package:thoughts/views/post_screen.dart';
 import 'package:thoughts/views/registration_screen.dart';
 import 'package:thoughts/views/splash_screen.dart';
+import 'package:thoughts/shared_preferences_util.dart';
 
 import 'bloc/post_bloc/post_bloc.dart';
 import 'color_block.dart';
+import 'constants.dart';
 
 void main() {
   runApp(MyApp());
@@ -45,7 +47,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
           theme: CustomTheme.mainTheme,
           home: FutureBuilder(
-              future: Firebase.initializeApp(),
+              future: Future.wait([Firebase.initializeApp(),]),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   final AuthBloc authBloc = BlocProvider.of<AuthBloc>(context);
