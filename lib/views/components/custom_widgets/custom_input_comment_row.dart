@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:thoughts/bloc/comment_bloc/comment_bloc.dart';
 import 'package:thoughts/bloc/comment_bloc/comment_event.dart';
 import 'package:thoughts/constants.dart';
@@ -83,6 +84,7 @@ class _InputCommentRowState extends State<CustomInputCommentRow> {
                   FocusScope.of(context).unfocus();
                   controller.clear();
                   commentBloc.add(CreateCommentButtonPressed(userId: uid, content: commentText, postId: postId));
+                  _notify("Комментарий успешно опубликован");
                 },
                 elevation: 0,
                 focusElevation: 0,
@@ -98,5 +100,16 @@ class _InputCommentRowState extends State<CustomInputCommentRow> {
         ],
       ),
     );
+  }
+
+  void _notify(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.white,
+        textColor: Colors.orange,
+        fontSize: 16.0);
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:thoughts/bloc/comment_bloc/comment_bloc.dart';
 import 'package:thoughts/bloc/comment_bloc/comment_event.dart';
 import 'package:thoughts/entities/comment.dart';
@@ -50,12 +51,24 @@ class CommentComponent extends StatelessWidget {
 
                 comment.isOwn ?
                 IconButton(onPressed: () => {
-                  commentBloc.add(DeleteCommentButtonPressed(commentId: comment.idComment))
+                  commentBloc.add(DeleteCommentButtonPressed(commentId: comment.idComment)),
+                  _notify("Комментарий успешно удален")
                 },
                     icon: const Icon(Icons.delete_outline, size: 25,) ) : Container()],
               ),
             )
           ]
         ));
+  }
+
+  void _notify(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.white,
+        textColor: Colors.orange,
+        fontSize: 16.0);
   }
 }
