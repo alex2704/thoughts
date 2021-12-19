@@ -30,36 +30,39 @@ class PostScreen extends StatelessWidget {
           .then((value) => _uid = value),
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          return BlocProvider<CommentBloc>(
-            create: (context) =>
-                CommentBloc(commentRepository: commentsRepository),
-            child: Scaffold(
-              appBar: Header(),
-              body: Scrollbar(
-                thickness: 5.0,
-                radius: const Radius.circular(10.0),
-                child: Stack(
-                  children: <Widget>[
-                    ListView(
-                      children: [
-                        isFullPost == true ? FeedItem(post: post) : Container(),
-                        Padding(
-                            padding: const EdgeInsets.only(bottom: 110),
-                            child: CommentsList(
-                                postId: post.idPost, userId: _uid)),
-                      ],
-                    ),
-                    Positioned(
-                        child: Padding(
-                            padding: const EdgeInsets.only(bottom: 30),
-                            child: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: CustomInputCommentRow(postId: post.idPost),
-                            ))),
-                    const Positioned(
-                        child: Align(
-                            alignment: Alignment.bottomCenter, child: Footer()))
-                  ],
+          return GestureDetector(
+            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+            child: BlocProvider<CommentBloc>(
+              create: (context) =>
+                  CommentBloc(commentRepository: commentsRepository),
+              child: Scaffold(
+                appBar: Header(),
+                body: Scrollbar(
+                  thickness: 5.0,
+                  radius: const Radius.circular(10.0),
+                  child: Stack(
+                    children: <Widget>[
+                      ListView(
+                        children: [
+                          isFullPost == true ? FeedItem(post: post) : Container(),
+                          Padding(
+                              padding: const EdgeInsets.only(bottom: 110),
+                              child: CommentsList(
+                                  postId: post.idPost, userId: _uid)),
+                        ],
+                      ),
+                      Positioned(
+                          child: Padding(
+                              padding: const EdgeInsets.only(bottom: 30),
+                              child: Align(
+                                alignment: Alignment.bottomCenter,
+                                child: CustomInputCommentRow(postId: post.idPost),
+                              ))),
+                      const Positioned(
+                          child: Align(
+                              alignment: Alignment.bottomCenter, child: Footer()))
+                    ],
+                  ),
                 ),
               ),
             ),

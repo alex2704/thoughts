@@ -4,6 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:thoughts/theme/colors.dart';
 import 'package:thoughts/views/feed_screen.dart';
 
+import '../add_post_screen.dart';
+
 class Footer extends StatelessWidget {
   const Footer({Key? key}) : super(key: key);
 
@@ -67,7 +69,7 @@ class Footer extends StatelessWidget {
 
   void _navigateToCreatePost(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return FeedScreen();
+      return AddPostScreen();
     }));
   }
 

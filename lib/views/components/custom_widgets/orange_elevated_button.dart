@@ -5,9 +5,10 @@ class MyOrangeElevatedButton extends StatelessWidget {
   final Widget child;
   final VoidCallback? onPressed;
   final EdgeInsetsGeometry edgeInsetsGeometry;
+  final double? fontSize;
 
   const MyOrangeElevatedButton({required this.child, required this.onPressed,
-    required this.edgeInsetsGeometry,
+    required this.edgeInsetsGeometry, this.fontSize = 18,
     Key? key}) : super(key: key);
 
   @override
@@ -17,7 +18,7 @@ class MyOrangeElevatedButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
           primary: CustomColors.orange,
           padding: edgeInsetsGeometry,
-          textStyle: const TextStyle(fontSize: 18, color: Colors.white),
+          textStyle: TextStyle(fontSize: fontSize, color: Colors.white),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50)
           )
