@@ -25,7 +25,8 @@ class PostBloc extends Bloc<PostEvent, PostState>{
     if (event is PostLoadEvent) {
       yield PostLoadingState();
       try {
-        final List<Post> _loadedPostList = await postRepository!.getAllPosts();
+        String _uid = await SharedPreferencesUtil.getData<String>(Constants.uid);
+        final List<Post> _loadedPostList = await postRepository!.getAllPosts(_uid);
         yield PostLoadedState(loadedPost: _loadedPostList);
       } catch (_) {
         yield PostEmptyState();

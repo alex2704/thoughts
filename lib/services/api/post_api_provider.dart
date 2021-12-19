@@ -31,7 +31,7 @@ class PostProvider {
     }
   }
 
-  Future<List<Post>> getPostsCollectionFromFirebase() async {
+  Future<List<Post>> getPostsCollectionFromFirebase(String userId) async {
     _instance = FirebaseFirestore.instance;
 
     //getting info about posts
@@ -50,6 +50,16 @@ class PostProvider {
       DocumentSnapshot userSnapshot = await user.get();
       var userData = userSnapshot.data() as dynamic;
       cat.infoUser = InfoUser.fromJson(userData);
+
+      //getting info about likes
+      var like = _instance!.collection("likes").where("id_post", isEqualTo: cat.idPost).where("id_user", isEqualTo: userId);
+      QuerySnapshot likeSnapshot = await like.get();
+      try {
+        likeSnapshot.docs.first;
+        cat.isLiked = true;
+      } catch(error) {
+        cat.isLiked = false;
+      }
       _posts.add(cat);
     }
 
