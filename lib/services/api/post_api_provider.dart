@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:http/http.dart';
 import 'package:thoughts/entities/info_user.dart';
 import 'package:thoughts/entities/post.dart';
 import 'dart:developer' as developer;
@@ -38,13 +39,11 @@ class PostProvider {
     //getting info about posts
     CollectionReference posts = _instance!.collection("posts");
 
-    DocumentSnapshot snapshot = await posts.doc('Post1').get();
-    var data = snapshot.data() as Map;
-    var postsData = data['allposts'] as List<dynamic>;
+    QuerySnapshot querySnapshot = await posts.orderBy("date_created", descending: true).get();
+    List<dynamic> postsData = querySnapshot.docs.map((doc) => doc.data()).toList();
 
     for (var catData in postsData) {
       Post cat = Post.fromJson(catData);
-
       //getting info about users
       DocumentReference user = _instance!.doc("users/${cat.idUser}");
 
@@ -74,9 +73,8 @@ class PostProvider {
     //getting info about posts
     CollectionReference posts = _instance!.collection("posts");
 
-    DocumentSnapshot snapshot = await posts.doc('Post1').get();
-    var data = snapshot.data() as Map;
-    var postsData = data['allposts'] as List<dynamic>;
+    QuerySnapshot querySnapshot = await posts.orderBy("date_created", descending: true).get();
+    List<dynamic> postsData = querySnapshot.docs.map((doc) => doc.data()).toList();
 
     for (var catData in postsData) {
       Post cat = Post.fromJson(catData);
@@ -105,7 +103,7 @@ class PostProvider {
       "id_user": userId,
       "comments_count": 0,
       "likes_count": 0,
-      "is_liked": 0,
+      "is_liked": false,
       "description": content,
       "date_created": timestamp,
       "url_img": ""
