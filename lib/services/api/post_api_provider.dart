@@ -32,6 +32,7 @@ class PostProvider {
   }
 
   Future<List<Post>> getPostsCollectionFromFirebase(String userId) async {
+    _posts.clear();
     _instance = FirebaseFirestore.instance;
 
     //getting info about posts
@@ -67,6 +68,7 @@ class PostProvider {
   }
 
   Future<List<Post>> getPostsCollectionWithoutLoginFromFirebase() async {
+    _posts.clear();
     _instance = FirebaseFirestore.instance;
 
     //getting info about posts
