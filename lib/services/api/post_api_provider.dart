@@ -91,4 +91,36 @@ class PostProvider {
 
     return _posts;
   }
+
+  Future<Post> createPostInFirebase(String userId, String content) async {
+    Timestamp timestamp = Timestamp.fromDate(DateTime.now());
+    _instance = FirebaseFirestore.instance;
+
+    DocumentReference docReference = _instance!.collection("posts").doc();
+    String idDocument = docReference.id;
+    await _instance!.collection("posts").doc(idDocument).set({
+      "id_post": idDocument,
+      "id_user": userId,
+      "comments_count": 0,
+      "likes_count": 0,
+      "is_liked": 0,
+      "description": content,
+      "date_created": timestamp,
+      "url_img": ""
+    });
+
+    Post post = Post(idPost: idDocument,
+        idUser: userId, urlImg: "", description: content, dateCreated: timestamp,
+    commentsCount: 0, likesCount: 0, isLiked: false);
+
+    //getting info about user
+    DocumentReference user = _instance!.doc("users/${userId}");
+
+    DocumentSnapshot userSnapshot = await user.get();
+    var userData = userSnapshot.data() as dynamic;
+    post.infoUser = InfoUser.fromJson(userData);
+    _posts.add(post);
+
+    return post;
+  }
 }

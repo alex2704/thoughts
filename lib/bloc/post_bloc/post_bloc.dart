@@ -47,5 +47,15 @@ class PostBloc extends Bloc<PostEvent, PostState>{
       List<Post> _postFromStorageList = postRepository!.getAllPostsFromStorage();
       yield PostLoadedState(loadedPost: _postFromStorageList);
     }
+    else if (event is CreatePostButtonPressed) {
+      yield PostLoadingState();
+      try {
+        await postRepository!.createPost(event.userId, event.content);
+        final List<Post> _lastLoadedPostList = postRepository!.getAllPostsFromStorage();
+        yield PostLoadedState(loadedPost: _lastLoadedPostList);
+      } catch (_) {
+        yield PostErrorState();
+      }
+    }
   }
 }

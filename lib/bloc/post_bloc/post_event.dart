@@ -13,3 +13,9 @@ class PostLikedEvent extends PostEvent {
   PostLikedEvent ({required this.post});
 
 }
+
+class CreatePostButtonPressed extends PostEvent {
+  String userId, content;
+
+  CreatePostButtonPressed({required this.userId, required this.content});
+}

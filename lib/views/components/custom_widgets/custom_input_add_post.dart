@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:thoughts/theme/colors.dart';
 
 class CustomInputAddPost extends StatefulWidget {
+  final TextEditingController controller;
+  const CustomInputAddPost({required this.controller});
+
   @override
   State<StatefulWidget> createState() {
     return _InputAddPostState();
@@ -11,8 +14,6 @@ class CustomInputAddPost extends StatefulWidget {
 
 class _InputAddPostState extends State<CustomInputAddPost> {
 
-  final controller = TextEditingController();
-
   @override
   void initState() {
     super.initState();
@@ -20,7 +21,7 @@ class _InputAddPostState extends State<CustomInputAddPost> {
 
   @override
   void dispose() {
-    controller.dispose();
+    widget.controller.dispose();
     super.dispose();
   }
 
@@ -37,7 +38,7 @@ class _InputAddPostState extends State<CustomInputAddPost> {
               keyboardType: TextInputType.multiline,
                 minLines: 1,
                 maxLines: 25,
-              controller: controller,
+              controller: widget.controller,
                 autofocus: true,
               style: const TextStyle(color: Colors.black),
                 decoration: InputDecoration(
