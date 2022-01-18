@@ -4,10 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:thoughts/bloc/post_bloc/post_bloc.dart';
 import 'package:thoughts/bloc/post_bloc/post_event.dart';
+import 'package:thoughts/entities/info_user.dart';
 import 'package:thoughts/entities/post.dart';
 import 'package:thoughts/theme/colors.dart';
 import 'package:thoughts/views/components/custom_widgets/heart_animation_widget.dart';
 import 'package:thoughts/views/post_screen.dart';
+import 'package:thoughts/views/profile_screen.dart';
 
 class FeedItem extends StatefulWidget {
   final Post post;
@@ -53,20 +55,28 @@ class FeedItemState extends State<FeedItem> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 post.infoUser.idAvatar == 0
-                    ? const CircleAvatar(
-                        backgroundImage:
-                            AssetImage('assets/images/no_photo.jpg'),
-                        radius: 30,
+                    ? InkWell(
+                        child: const CircleAvatar(
+                          backgroundImage:
+                              AssetImage('assets/images/no_photo.jpg'),
+                          radius: 30,
+                        ),
+                        onTap: () =>
+                            _navigateToProfilePage(context, post.infoUser),
                       )
-                    : Container(),
+                    : InkWell(
+                        child: Container(),
+                        onTap: () =>
+                            _navigateToProfilePage(context, post.infoUser),
+                      ),
                 SizedBox(
                   height: 37,
                   child: HeartAnimationWidget(
                     isAnimating: _isLiked,
                     child: IconButton(
-                      splashColor: Colors.transparent,
+                        splashColor: Colors.transparent,
                         onPressed: () => setState(() {
-                          _isLiked = onLikeButtonTapped(_isLiked);
+                              _isLiked = onLikeButtonTapped(_isLiked);
                             }),
                         icon: Icon(
                           icon,
@@ -147,6 +157,12 @@ class FeedItemState extends State<FeedItem> {
   void _navigateToPostPage(BuildContext context, post) {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return PostScreen(post: post, isFullPost: true);
+    }));
+  }
+
+  void _navigateToProfilePage(BuildContext context, InfoUser infoUser) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return ProfileScreen(infoUser: infoUser);
     }));
   }
 
