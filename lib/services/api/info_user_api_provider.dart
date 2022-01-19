@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:thoughts/constants.dart';
 import 'package:thoughts/entities/info_user.dart';
+import 'package:thoughts/shared_preferences_util.dart';
 
 class InfoUserProvider {
   FirebaseFirestore? _instance;
@@ -23,6 +25,11 @@ class InfoUserProvider {
       'avatar_url': ""
     });
   }
+
+  Future<InfoUser> getUserDataWithoutUid() async {
+    String uid = await SharedPreferencesUtil.getData<String>(Constants.uid);
+    return getUserData(uid);
+}
 
   Future<InfoUser> getUserData(String uid) async {
     _instance = FirebaseFirestore.instance;
