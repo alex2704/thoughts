@@ -58,7 +58,7 @@ class PostScreen extends StatelessWidget {
                                 alignment: Alignment.bottomCenter,
                                 child: CustomInputCommentRow(postId: post.idPost),
                               ))),
-                      const Positioned(
+                      Positioned(
                           child: Align(
                               alignment: Alignment.bottomCenter, child: Footer()))
                     ],

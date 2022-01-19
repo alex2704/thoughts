@@ -42,7 +42,7 @@ class FeedItemsList extends StatelessWidget {
                   )),
           BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
             if (state is AuthenticatedState) {
-              return const Positioned(
+              return Positioned(
                   child: Align(
                       alignment: Alignment.bottomCenter, child: Footer()));
             } else {

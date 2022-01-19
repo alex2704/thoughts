@@ -119,6 +119,12 @@ class PostProvider {
     DocumentSnapshot userSnapshot = await user.get();
     var userData = userSnapshot.data() as dynamic;
     post.infoUser = InfoUser.fromJson(userData);
+
+    var newPostCount = post.infoUser.postsCount + 1;
+    await user.update({
+      "posts_count": newPostCount
+    });
+
     _posts.add(post);
 
     return post;

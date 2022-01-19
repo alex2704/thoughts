@@ -80,7 +80,7 @@ class AddPostScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const Positioned(
+              Positioned(
                   child: Align(alignment: Alignment.bottomCenter, child: Footer()))
             ],
           ),

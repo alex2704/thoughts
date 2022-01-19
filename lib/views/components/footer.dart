@@ -1,13 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:thoughts/constants.dart';
+import 'package:thoughts/repositories/info_user_repository.dart';
+import 'package:thoughts/shared_preferences_util.dart';
 import 'package:thoughts/theme/colors.dart';
 import 'package:thoughts/views/feed_screen.dart';
+import 'package:thoughts/views/profile_screen.dart';
 
 import '../add_post_screen.dart';
 
 class Footer extends StatelessWidget {
-  const Footer({Key? key}) : super(key: key);
+  final InfoUserRepository _infoUserRepository = InfoUserRepository();
+  Footer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -79,9 +84,11 @@ class Footer extends StatelessWidget {
     }));
   }
 
-  void _navigateToMyProfile(BuildContext context) {
+  void _navigateToMyProfile(BuildContext context) async {
+    String uid = await SharedPreferencesUtil.getData<String>(Constants.uid);
+    var infoUser = await _infoUserRepository.getCurrentUser(uid);
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return FeedScreen();
+      return ProfileScreen(infoUser: infoUser);
     }));
   }
 }
