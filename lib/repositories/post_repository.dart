@@ -7,7 +7,9 @@ class PostRepository {
   final PostProvider _postsProvider = PostProvider();
   Future<List<Post>> getAllPosts(String userId) => _postsProvider.getPostsCollectionFromFirebase(userId);
   List<Post> getAllPostsFromStorage() => _postsProvider.getPosts();
-  void changeLikeStatus (Post post, String userId) => _postsProvider.changeLikeStatus(post, userId);
+  List<Post> getPostsForProfileFromStorage() => _postsProvider.getPostsForProfile();
+  void changeLikeStatus (Post post, String userId, bool fromProfile) => _postsProvider.changeLikeStatus(post, userId, fromProfile);
   Future<List<Post>> getAllPostsWithoutLogin() => _postsProvider.getPostsCollectionWithoutLoginFromFirebase();
   Future<Post> createPost(userId, content) => _postsProvider.createPostInFirebase(userId, content);
+  Future<List<Post>> getPostsForProfile(userId, uid) => _postsProvider.getPostsForProfileFromFirebase(userId, uid);
 }

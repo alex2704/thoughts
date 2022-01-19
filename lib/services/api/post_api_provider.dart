@@ -7,12 +7,23 @@ import 'dart:developer' as developer;
 class PostProvider {
   FirebaseFirestore? _instance;
   final List<Post> _posts = [];
+  final List<Post> _postsForProfile = [];
 
   List<Post> getPosts() {
     return _posts;
   }
 
-  void changeLikeStatus(Post post, String userId) async {
+  List<Post> getPostsForProfile() {
+    return _postsForProfile;
+  }
+
+  void changeLikeStatus(Post post, String userId, bool fromProfile) async {
+    if (fromProfile) {
+     if (_posts.contains(post)) {
+       int index = _posts.indexOf(post);
+       _posts[index].isLiked = !post.isLiked;
+     }
+    }
     post.isLiked = !post.isLiked;
 
     _instance = FirebaseFirestore.instance;
@@ -128,5 +139,40 @@ class PostProvider {
     _posts.add(post);
 
     return post;
+  }
+
+  Future<List<Post>> getPostsForProfileFromFirebase(String userId, String uid) async{
+    _postsForProfile.clear();
+    _instance = FirebaseFirestore.instance;
+
+    //getting info about posts
+    CollectionReference posts = _instance!.collection("posts");
+
+
+    QuerySnapshot querySnapshot = await posts.where("id_user", isEqualTo: userId).orderBy("date_created", descending: true).get();
+    List<dynamic> postsData = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+    for (var catData in postsData) {
+      Post cat = Post.fromJson(catData);
+      //getting info about users
+      DocumentReference user = _instance!.doc("users/${cat.idUser}");
+
+      DocumentSnapshot userSnapshot = await user.get();
+      var userData = userSnapshot.data() as dynamic;
+      cat.infoUser = InfoUser.fromJson(userData);
+
+      //getting info about likes
+      var like = _instance!.collection("likes").where("id_post", isEqualTo: cat.idPost).where("id_user", isEqualTo: uid);
+      QuerySnapshot likeSnapshot = await like.get();
+      try {
+        likeSnapshot.docs.first;
+        cat.isLiked = true;
+      } catch(error) {
+        cat.isLiked = false;
+      }
+      _postsForProfile.add(cat);
+    }
+
+    return _postsForProfile;
   }
 }

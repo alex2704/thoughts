@@ -14,20 +14,22 @@ import 'package:thoughts/views/profile_screen.dart';
 class FeedItem extends StatefulWidget {
   final Post post;
   final bool isLiked;
+  final bool fromProfile;
 
-  FeedItem({required this.post, this.isLiked = false, Key? key})
+  FeedItem({required this.post, this.isLiked = false, this.fromProfile = false, Key? key})
       : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => FeedItemState(post: post);
+  State<StatefulWidget> createState() => FeedItemState(post: post, fromProfile: fromProfile);
 }
 
 class FeedItemState extends State<FeedItem> {
   final Post post;
   late bool _isLiked;
   late PostBloc postBloc;
+  final bool fromProfile;
 
-  FeedItemState({required this.post}) : super();
+  FeedItemState({required this.post, required this.fromProfile}) : super();
 
   @override
   void initState() {
@@ -76,7 +78,7 @@ class FeedItemState extends State<FeedItem> {
                     child: IconButton(
                         splashColor: Colors.transparent,
                         onPressed: () => setState(() {
-                              _isLiked = onLikeButtonTapped(_isLiked);
+                              _isLiked = onLikeButtonTapped(_isLiked, fromProfile);
                             }),
                         icon: Icon(
                           icon,
@@ -166,8 +168,8 @@ class FeedItemState extends State<FeedItem> {
     }));
   }
 
-  bool onLikeButtonTapped(bool isLiked) {
-    postBloc.add(PostLikedEvent(post: post));
+  bool onLikeButtonTapped(bool isLiked, bool fromProfile) {
+    postBloc.add(PostLikedEvent(post: post, fromProfile: fromProfile));
     return !isLiked;
   }
 }

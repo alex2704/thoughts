@@ -9,6 +9,7 @@ import '../constants.dart';
 import '../shared_preferences_util.dart';
 import 'components/custom_widgets/custom_input_add_post.dart';
 import 'components/footer.dart';
+import 'feed_screen.dart';
 
 class AddPostScreen extends StatelessWidget {
   late final String _uid;
@@ -93,6 +94,8 @@ class AddPostScreen extends StatelessWidget {
   }
 
   void _navigateToFeedPage(BuildContext context) {
-    Navigator.of(context).pop();
+    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {
+      return FeedScreen();
+    }), (Route<dynamic> route) => false);
   }
 }

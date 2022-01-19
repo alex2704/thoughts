@@ -6,7 +6,8 @@ class PostLoadingState extends PostState {}
 
 class PostLoadedState extends PostState {
   List<dynamic> loadedPost;
-  PostLoadedState({required this.loadedPost});
+  List<dynamic> loadedForProfile;
+  PostLoadedState({required this.loadedPost, required this.loadedForProfile});
 }
 
 class PostErrorState extends PostState {}
