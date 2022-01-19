@@ -54,7 +54,7 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          infoUser.idAvatar == 0 ?
+                          infoUser.avatarUrl == "" ?
                           const Padding(
                             padding: EdgeInsets.only(
                                 left: 20, top: 20, right: 20),
@@ -64,7 +64,12 @@ class ProfileScreen extends StatelessWidget {
                               radius: 50,
                             ),
                           )
-                              : Container(),
+                              : Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 20, top: 20, right: 20),
+                                child: ClipOval(child: Image.network(infoUser.avatarUrl, height: 83.2,
+                            width: 83.2, fit: BoxFit.cover,)),
+                              ),
                           Expanded(
                             child: Text(
                               infoUser.description, style: const TextStyle(
