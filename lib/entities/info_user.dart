@@ -10,8 +10,9 @@ class InfoUser extends Equatable {
   late final int followersCount;
   late final int followingCount;
   late final int postsCount;
+  String avatarUrl;
 
-  InfoUser({required this.uid, required this.login, required this.name}) {
+  InfoUser({required this.uid, required this.login, required this.name, required this.avatarUrl}) {
     description = "";
     idAvatar = 0;
     followersCount = 0;
@@ -23,19 +24,21 @@ class InfoUser extends Equatable {
     required this.login, required this.name,
     required this.description, required this.idAvatar,
     required this.followersCount, required this.followingCount,
-    required this.postsCount});
+    required this.postsCount,
+  required this.avatarUrl});
 
   InfoUser.partInfoUser({
     required this.uid,
     required this.name,
     required this.login,
-    required this.idAvatar
+    required this.idAvatar,
+    required this.avatarUrl
 });
 
   @override
   List<Object?> get props =>
       [uid, login, description, name, idAvatar, followersCount,
-        followingCount, postsCount];
+        followingCount, postsCount, avatarUrl];
 
   factory InfoUser.fromJson(Map<String, dynamic> json) {
     return InfoUser.fullUser(
@@ -46,7 +49,8 @@ class InfoUser extends Equatable {
         idAvatar: json['id_avatar'],
         followersCount: json['followers_count'],
         followingCount: json['following_count'],
-        postsCount: json['posts_count']);
+        postsCount: json['posts_count'],
+        avatarUrl: json['avatar_url']);
   }
 
   factory InfoUser.fromJsonPart(Map<String, dynamic> json) {
@@ -54,7 +58,8 @@ class InfoUser extends Equatable {
       uid: json['uid'],
       login: json['login'],
       name: json['name'],
-      idAvatar: json['id_avatar']
+      idAvatar: json['id_avatar'],
+      avatarUrl: json['avatar_url']
     );
   }
 

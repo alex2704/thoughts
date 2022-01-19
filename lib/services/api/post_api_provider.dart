@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart';
 import 'package:thoughts/entities/info_user.dart';
 import 'package:thoughts/entities/post.dart';
@@ -6,6 +7,7 @@ import 'dart:developer' as developer;
 
 class PostProvider {
   FirebaseFirestore? _instance;
+  FirebaseStorage? _firebaseStorage;
   final List<Post> _posts = [];
   final List<Post> _postsForProfile = [];
 
@@ -71,6 +73,12 @@ class PostProvider {
       } catch(error) {
         cat.isLiked = false;
       }
+      developer.log(cat.infoUser.avatarUrl.toString());
+      if (cat.infoUser.avatarUrl != "") {
+        developer.log(cat.infoUser.avatarUrl);
+        String fullUrl = await getUrlImage(cat.infoUser.avatarUrl);
+        cat.infoUser.avatarUrl = fullUrl;
+      }
       _posts.add(cat);
     }
 
@@ -97,6 +105,10 @@ class PostProvider {
       var userData = userSnapshot.data() as dynamic;
       cat.infoUser = InfoUser.fromJson(userData);
       cat.isLiked = false;
+      if (cat.infoUser.avatarUrl != "") {
+        String fullUrl = await getUrlImage(cat.infoUser.avatarUrl);
+        cat.infoUser.avatarUrl = fullUrl;
+      }
       _posts.add(cat);
     }
 
@@ -170,9 +182,24 @@ class PostProvider {
       } catch(error) {
         cat.isLiked = false;
       }
+      if (cat.infoUser.avatarUrl != "") {
+        String fullUrl = await getUrlImage(cat.infoUser.avatarUrl);
+        cat.infoUser.avatarUrl = fullUrl;
+      }
+
       _postsForProfile.add(cat);
     }
 
     return _postsForProfile;
+  }
+
+  Future<String> getUrlImage(String path) async{
+    _firebaseStorage = FirebaseStorage.instance;
+    // final rf = _firebaseStorage!.ref().listAll();
+    // var res = await rf;
+    // developer.log(res.items.toString());
+    final ref = _firebaseStorage!.ref().child("x7.jpg");
+    var url = await ref.getDownloadURL();
+    return url;
   }
 }

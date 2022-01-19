@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:thoughts/bloc/comment_bloc/comment_bloc.dart';
 import 'package:thoughts/entities/post.dart';
 import 'package:thoughts/repositories/comment_repository.dart';
+import 'package:thoughts/repositories/post_repository.dart';
 import 'package:thoughts/shared_preferences_util.dart';
 import 'package:thoughts/views/components/comment_component.dart';
 import 'package:thoughts/views/components/comments_list.dart';

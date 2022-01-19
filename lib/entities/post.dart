@@ -10,8 +10,8 @@ import 'info_user.dart';
 
 class Post extends Equatable {
   final String idPost;
-  final String? urlImg;
-  final String? description;
+  String urlImg;
+  final String description;
   final String idUser;
   final int commentsCount;
   final int likesCount;
@@ -46,8 +46,6 @@ class Post extends Equatable {
         isLiked,
         dateCreated,
       ];
-
-  // comments];
 
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(

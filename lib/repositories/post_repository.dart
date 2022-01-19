@@ -12,4 +12,5 @@ class PostRepository {
   Future<List<Post>> getAllPostsWithoutLogin() => _postsProvider.getPostsCollectionWithoutLoginFromFirebase();
   Future<Post> createPost(userId, content) => _postsProvider.createPostInFirebase(userId, content);
   Future<List<Post>> getPostsForProfile(userId, uid) => _postsProvider.getPostsForProfileFromFirebase(userId, uid);
+  Future<String> getUrlImage(String url) => _postsProvider.getUrlImage(url);
 }

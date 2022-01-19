@@ -6,6 +6,7 @@ import 'package:thoughts/bloc/auth_bloc/auth_state.dart';
 import 'package:thoughts/bloc/post_bloc/post_bloc.dart';
 import 'package:thoughts/bloc/post_bloc/post_event.dart';
 import 'package:thoughts/bloc/post_bloc/post_state.dart';
+import 'package:thoughts/repositories/post_repository.dart';
 import 'package:thoughts/views/components/feed_item.dart';
 import 'dart:developer' as developer;
 

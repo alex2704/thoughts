@@ -17,7 +17,8 @@ class InfoUserProvider {
       'posts_count': 0,
       'id_avatar': 0,
       'followers_count': 0,
-      'following_count': 0
+      'following_count': 0,
+      'avatar_url': ""
     });
   }
 
