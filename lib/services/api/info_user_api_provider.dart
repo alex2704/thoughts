@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:thoughts/entities/info_user.dart';
 
 class InfoUserProvider {
   FirebaseFirestore? _instance;
+  FirebaseStorage? _firebaseStorage;
 
   Future createUserData(String uid, String login, String name) async {
     _instance = FirebaseFirestore.instance;
@@ -28,6 +30,17 @@ class InfoUserProvider {
     DocumentSnapshot userSnapshot = await user.get();
     var userData = userSnapshot.data() as dynamic;
     var infoUser = InfoUser.fromJson(userData);
+    if (infoUser.avatarUrl != "") {
+      String fullUrl = await getUrlImage(infoUser.avatarUrl);
+      infoUser.avatarUrl = fullUrl;
+    }
     return infoUser;
+  }
+
+  Future<String> getUrlImage(String path) async{
+    _firebaseStorage = FirebaseStorage.instance;
+    final ref = _firebaseStorage!.ref().child(path);
+    var url = await ref.getDownloadURL();
+    return url;
   }
 }

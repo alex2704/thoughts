@@ -195,10 +195,7 @@ class PostProvider {
 
   Future<String> getUrlImage(String path) async{
     _firebaseStorage = FirebaseStorage.instance;
-    // final rf = _firebaseStorage!.ref().listAll();
-    // var res = await rf;
-    // developer.log(res.items.toString());
-    final ref = _firebaseStorage!.ref().child("x7.jpg");
+    final ref = _firebaseStorage!.ref().child(path);
     var url = await ref.getDownloadURL();
     return url;
   }
